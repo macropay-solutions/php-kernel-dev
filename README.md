@@ -121,9 +121,6 @@ php run make:channel
 php run make:command
 ```
 ```bash
-php run make:controller
-````
-```bash
 php run make:event
 ```
 ```bash
@@ -143,9 +140,6 @@ php run make:mail
 ```
 ```bash
 php run make:middleware
-```
-```bash
-php run make:model
 ```
 ```bash
 php run make:notification
