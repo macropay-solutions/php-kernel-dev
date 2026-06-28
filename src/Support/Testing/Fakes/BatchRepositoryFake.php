@@ -8,7 +8,6 @@ use MacropaySolutions\Kernel\Bus\BatchRepository;
 use MacropaySolutions\Kernel\Bus\PendingBatch;
 use MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts;
 use MacropaySolutions\Kernel\Support\Str;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\BatchFake;
 
 class BatchRepositoryFake implements BatchRepository
 {

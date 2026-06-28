@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Database\Migrations;
 
 use Closure;
+use InvalidArgumentException;
 use MacropaySolutions\Kernel\Filesystem\Filesystem;
 use MacropaySolutions\Kernel\Support\Str;
-use InvalidArgumentException;
 
 class MigrationCreator
 {

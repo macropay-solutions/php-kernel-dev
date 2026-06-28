@@ -5,10 +5,10 @@ namespace MacropaySolutions\KernelDev\Testing;
 use ArrayAccess;
 use Closure;
 use Countable;
+use JsonSerializable;
 use MacropaySolutions\Kernel\Contracts\Support\Jsonable;
 use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\Kernel\Support\Str;
-use JsonSerializable;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 
 class AssertableJsonString implements ArrayAccess, Countable

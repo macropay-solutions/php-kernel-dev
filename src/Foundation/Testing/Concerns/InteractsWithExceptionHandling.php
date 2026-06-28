@@ -4,8 +4,8 @@ namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use Closure;
 use MacropaySolutions\Kernel\Contracts\Debug\ExceptionHandler;
-use MacropaySolutions\KernelDev\Testing\Assert;
 use MacropaySolutions\Kernel\Validation\ValidationException;
+use MacropaySolutions\KernelDev\Testing\Assert;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;

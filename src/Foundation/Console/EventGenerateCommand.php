@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use MacropaySolutions\Kernel\Console\Command;
 use MacropaySolutions\Framework\Providers\EventServiceProvider;
+use MacropaySolutions\Kernel\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'event:generate')]

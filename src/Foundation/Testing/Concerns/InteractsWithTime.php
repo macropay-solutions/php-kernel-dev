@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
-use MacropaySolutions\KernelDev\Foundation\Testing\Wormhole;
 use MacropaySolutions\Kernel\Support\Carbon;
+use MacropaySolutions\KernelDev\Foundation\Testing\Wormhole;
 
 trait InteractsWithTime
 {

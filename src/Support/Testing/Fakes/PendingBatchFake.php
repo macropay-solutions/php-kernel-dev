@@ -4,7 +4,6 @@ namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use MacropaySolutions\Kernel\Bus\PendingBatch;
 use MacropaySolutions\Kernel\Support\Collection;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\BusFake;
 
 class PendingBatchFake extends PendingBatch
 {

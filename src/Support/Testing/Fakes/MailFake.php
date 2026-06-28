@@ -11,8 +11,6 @@ use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
 use MacropaySolutions\Kernel\Mail\MailManager;
 use MacropaySolutions\Kernel\Support\Traits\ForwardsCalls;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\PendingMailFake;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 class MailFake implements Factory, Fake, Mailer, MailQueue

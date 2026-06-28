@@ -9,7 +9,6 @@ use MacropaySolutions\Kernel\Queue\CallQueuedClosure;
 use MacropaySolutions\Kernel\Queue\QueueManager;
 use MacropaySolutions\Kernel\Support\Collection;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 class QueueFake extends QueueManager implements Fake, Queue

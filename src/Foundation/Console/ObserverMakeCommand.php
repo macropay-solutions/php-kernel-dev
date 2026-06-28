@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use MacropaySolutions\Kernel\Console\GeneratorCommand;
 use InvalidArgumentException;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

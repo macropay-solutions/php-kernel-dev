@@ -4,6 +4,7 @@ namespace MacropaySolutions\KernelDev\Testing;
 
 use ArrayAccess;
 use Closure;
+use LogicException;
 use MacropaySolutions\Kernel\Contracts\Support\MessageBag;
 use MacropaySolutions\Kernel\Contracts\View\View;
 use MacropaySolutions\Kernel\Cookie\CookieValuePrefix;
@@ -19,7 +20,6 @@ use MacropaySolutions\Kernel\Support\Traits\Conditionable;
 use MacropaySolutions\Kernel\Support\Traits\Macroable;
 use MacropaySolutions\Kernel\Support\Traits\Tappable;
 use MacropaySolutions\Kernel\Support\ViewErrorBag;
-use LogicException;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 use MacropaySolutions\KernelDev\Testing\Constraints\SeeInOrder;
 use MacropaySolutions\KernelDev\Testing\Fluent\AssertableJson;

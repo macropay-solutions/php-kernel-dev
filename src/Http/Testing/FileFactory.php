@@ -3,7 +3,6 @@
 namespace MacropaySolutions\KernelDev\Http\Testing;
 
 use LogicException;
-use MacropaySolutions\KernelDev\Http\Testing\File;
 
 class FileFactory
 {

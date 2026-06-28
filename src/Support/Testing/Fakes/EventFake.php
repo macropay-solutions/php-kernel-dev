@@ -10,7 +10,6 @@ use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\Kernel\Support\Traits\ForwardsCalls;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
-use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
 use PHPUnit\Framework\Assert as PHPUnit;
 use ReflectionFunction;
 

@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use MacropaySolutions\Kernel\Contracts\Support\Jsonable;
+use MacropaySolutions\Kernel\Database\Events\QueryExecuted;
 use MacropaySolutions\Kernel\Database\Obvious\Model;
 use MacropaySolutions\Kernel\Database\Obvious\SoftDeletes;
-use MacropaySolutions\Kernel\Database\Events\QueryExecuted;
 use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\Kernel\Support\Facades\DB;
 use MacropaySolutions\KernelDev\Testing\Constraints\CountInDatabase;

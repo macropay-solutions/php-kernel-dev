@@ -5,9 +5,9 @@ namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 use MacropaySolutions\Kernel\Support\Facades\View as ViewFacade;
 use MacropaySolutions\Kernel\Support\MessageBag;
 use MacropaySolutions\Kernel\Support\ViewErrorBag;
+use MacropaySolutions\Kernel\View\View;
 use MacropaySolutions\KernelDev\Testing\TestComponent;
 use MacropaySolutions\KernelDev\Testing\TestView;
-use MacropaySolutions\Kernel\View\View;
 
 trait InteractsWithViews
 {

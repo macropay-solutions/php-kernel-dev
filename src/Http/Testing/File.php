@@ -3,8 +3,6 @@
 namespace MacropaySolutions\KernelDev\Http\Testing;
 
 use MacropaySolutions\Kernel\Http\UploadedFile;
-use MacropaySolutions\KernelDev\Http\Testing\FileFactory;
-use MacropaySolutions\KernelDev\Http\Testing\MimeType;
 
 class File extends UploadedFile
 {
