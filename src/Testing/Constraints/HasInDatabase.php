@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Constraints;
 
-use Illuminate\Contracts\Database\Query\Expression;
-use Illuminate\Database\Connection;
+use MacropaySolutions\Kernel\Contracts\Database\Query\Expression;
+use MacropaySolutions\Kernel\Database\Connection;
 use PHPUnit\Framework\Constraint\Constraint;
 
 class HasInDatabase extends Constraint
@@ -18,7 +18,7 @@ class HasInDatabase extends Constraint
     /**
      * The database connection.
      *
-     * @var \Illuminate\Database\Connection
+     * @var \MacropaySolutions\Kernel\Database\Connection
      */
     protected $database;
 
@@ -32,7 +32,7 @@ class HasInDatabase extends Constraint
     /**
      * Create a new constraint instance.
      *
-     * @param \Illuminate\Database\Connection $database
+     * @param \MacropaySolutions\Kernel\Database\Connection $database
      * @param array $data
      * @return void
      */

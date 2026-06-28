@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Console\Scheduling;
 
-use Illuminate\Console\Application;
-use Illuminate\Console\Command;
+use MacropaySolutions\Kernel\Console\Application;
+use MacropaySolutions\Kernel\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 use function MacropaySolutions\Prompts\select;
@@ -28,7 +28,7 @@ class ScheduleTestCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \MacropaySolutions\Kernel\Console\Scheduling\Schedule $schedule
      * @return void
      */
     public function handle(Schedule $schedule)

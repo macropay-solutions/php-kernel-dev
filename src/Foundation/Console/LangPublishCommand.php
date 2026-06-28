@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Filesystem\Filesystem;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'lang:publish')]

@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing;
 
-use Illuminate\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
 use MacropaySolutions\KernelDev\Foundation\Testing\Traits\CanConfigureMigrationCommands;
 
 trait RefreshDatabase

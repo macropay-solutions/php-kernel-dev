@@ -3,10 +3,10 @@
 namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Bus\Batch;
-use Illuminate\Bus\UpdatedBatchJobCounts;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
+use MacropaySolutions\Kernel\Bus\Batch;
+use MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts;
+use MacropaySolutions\Kernel\Support\Carbon;
+use MacropaySolutions\Kernel\Support\Collection;
 
 class BatchFake extends Batch
 {
@@ -76,7 +76,7 @@ class BatchFake extends Batch
     /**
      * Add additional jobs to the batch.
      *
-     * @param \Illuminate\Support\Enumerable|object|array $jobs
+     * @param \MacropaySolutions\Kernel\Support\Enumerable|object|array $jobs
      * @return self
      */
     public function add($jobs)
@@ -105,7 +105,7 @@ class BatchFake extends Batch
      * Decrement the pending jobs for the batch.
      *
      * @param string $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     * @return \MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts
      */
     public function decrementPendingJobs(string $jobId)
     {
@@ -128,7 +128,7 @@ class BatchFake extends Batch
      * Increment the failed jobs for the batch.
      *
      * @param string $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     * @return \MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts
      */
     public function incrementFailedJobs(string $jobId)
     {

@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Http\Testing;
 
-use Illuminate\Http\UploadedFile;
+use MacropaySolutions\Kernel\Http\UploadedFile;
 use MacropaySolutions\KernelDev\Http\Testing\FileFactory;
 use MacropaySolutions\KernelDev\Http\Testing\MimeType;
 

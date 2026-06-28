@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Constraints;
 
-use Illuminate\Database\Connection;
+use MacropaySolutions\Kernel\Database\Connection;
 use PHPUnit\Framework\Constraint\Constraint;
 use ReflectionClass;
 
@@ -11,7 +11,7 @@ class CountInDatabase extends Constraint
     /**
      * The database connection.
      *
-     * @var \Illuminate\Database\Connection
+     * @var \MacropaySolutions\Kernel\Database\Connection
      */
     protected $database;
 
@@ -32,7 +32,7 @@ class CountInDatabase extends Constraint
     /**
      * Create a new constraint instance.
      *
-     * @param \Illuminate\Database\Connection $database
+     * @param \MacropaySolutions\Kernel\Database\Connection $database
      * @param int $expectedCount
      * @return void
      */

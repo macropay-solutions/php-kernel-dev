@@ -3,13 +3,13 @@
 namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use Closure;
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Traits\ForwardsCalls;
-use Illuminate\Support\Traits\ReflectsClosures;
+use MacropaySolutions\Kernel\Container\Container;
+use MacropaySolutions\Kernel\Contracts\Events\Dispatcher;
+use MacropaySolutions\Kernel\Contracts\Events\ShouldDispatchAfterCommit;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Str;
+use MacropaySolutions\Kernel\Support\Traits\ForwardsCalls;
+use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
 use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
 use PHPUnit\Framework\Assert as PHPUnit;
 use ReflectionFunction;
@@ -22,7 +22,7 @@ class EventFake implements Dispatcher, Fake
     /**
      * The original event dispatcher.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
+     * @var \MacropaySolutions\Kernel\Contracts\Events\Dispatcher
      */
     public $dispatcher;
 
@@ -50,7 +50,7 @@ class EventFake implements Dispatcher, Fake
     /**
      * Create a new event fake instance.
      *
-     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+     * @param \MacropaySolutions\Kernel\Contracts\Events\Dispatcher $dispatcher
      * @param array|string $eventsToFake
      * @return void
      */
@@ -212,7 +212,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param string $event
      * @param callable|null $callback
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     public function dispatched($event, $callback = null)
     {

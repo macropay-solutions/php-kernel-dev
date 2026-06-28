@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing;
 
-use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel as ConsoleKernel;
 
 trait WithConsoleEvents
 {

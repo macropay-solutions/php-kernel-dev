@@ -2,25 +2,25 @@
 
 namespace MacropaySolutions\KernelDev\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Composer;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Filesystem\Filesystem;
+use MacropaySolutions\Kernel\Support\Composer;
 
-use function Illuminate\Filesystem\join_paths;
+use function MacropaySolutions\Kernel\Filesystem\join_paths;
 
 abstract class MigrationGeneratorCommand extends Command
 {
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var \MacropaySolutions\Kernel\Filesystem\Filesystem
      */
     protected $files;
 
     /**
      * The Composer instance.
      *
-     * @var \Illuminate\Support\Composer
+     * @var \MacropaySolutions\Kernel\Support\Composer
      *
      * @deprecated Will be removed in a future Kernel version.
      */
@@ -29,8 +29,8 @@ abstract class MigrationGeneratorCommand extends Command
     /**
      * Create a new migration generator command instance.
      *
-     * @param \Illuminate\Filesystem\Filesystem $files
-     * @param \Illuminate\Support\Composer $composer
+     * @param \MacropaySolutions\Kernel\Filesystem\Filesystem $files
+     * @param \MacropaySolutions\Kernel\Support\Composer $composer
      * @return void
      */
     public function __construct(Filesystem $files, Composer $composer)

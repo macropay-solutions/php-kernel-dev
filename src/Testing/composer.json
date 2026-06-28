@@ -1,6 +1,5 @@
 {
-  "name": "illuminate/testing",
-  "description": "The Illuminate Testing package.",
+  "description": "The MacropaySolutions Kernel Testing package.",
   "license": "MIT",
   "require": {
     "php": "^8.1",
@@ -8,7 +7,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Illuminate\\Testing\\": ""
+      "MacropaySolutions\Kernel\\Testing\\": ""
     }
   },
   "extra": {
@@ -18,15 +17,8 @@
   },
   "suggest": {
     "brianium/paratest": "Required to run tests in parallel (^6.0).",
-    "illuminate/console": "Required to assert console commands (^10.0).",
-    "illuminate/database": "Required to assert databases (^10.0).",
-    "illuminate/http": "Required to assert responses (^10.0).",
     "mockery/mockery": "Required to use mocking (^1.5.1).",
-    "phpunit/phpunit": "Required to use assertions and run tests (^9.5.8|^10.0.7).",
-    "illuminate/collections": "^10.0",
-    "illuminate/contracts": "^10.0",
-    "illuminate/macroable": "^10.0",
-    "illuminate/support": "^10.0"
+    "phpunit/phpunit": "Required to use assertions and run tests (^9.5.8|^10.0.7)."
   },
   "config": {
     "sort-packages": true

@@ -2,15 +2,15 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Contracts\Container\Container;
+use MacropaySolutions\Kernel\Support\Str;
 
 class ParallelTesting
 {
     /**
      * The container instance.
      *
-     * @var \Illuminate\Contracts\Container\Container
+     * @var \MacropaySolutions\Kernel\Contracts\Container\Container
      */
     protected $container;
 
@@ -66,7 +66,7 @@ class ParallelTesting
     /**
      * Create a new parallel testing instance.
      *
-     * @param \Illuminate\Contracts\Container\Container $container
+     * @param \MacropaySolutions\Kernel\Contracts\Container\Container $container
      * @return void
      */
     public function __construct(Container $container)

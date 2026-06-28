@@ -3,11 +3,11 @@
 namespace MacropaySolutions\KernelDev\Testing\Fluent;
 
 use Closure;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Traits\Conditionable;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Support\Traits\Tappable;
+use MacropaySolutions\Kernel\Contracts\Support\Arrayable;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Traits\Conditionable;
+use MacropaySolutions\Kernel\Support\Traits\Macroable;
+use MacropaySolutions\Kernel\Support\Traits\Tappable;
 use MacropaySolutions\KernelDev\Testing\AssertableJsonString;
 use PHPUnit\Framework\Assert as PHPUnit;
 

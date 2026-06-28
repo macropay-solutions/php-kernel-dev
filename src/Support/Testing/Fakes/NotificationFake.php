@@ -4,15 +4,15 @@ namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use Closure;
 use Exception;
-use Illuminate\Contracts\Notifications\Dispatcher as NotificationDispatcher;
-use Illuminate\Contracts\Notifications\Factory as NotificationFactory;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Contracts\Translation\HasLocalePreference;
-use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Support\Traits\ReflectsClosures;
+use MacropaySolutions\Kernel\Contracts\Notifications\Dispatcher as NotificationDispatcher;
+use MacropaySolutions\Kernel\Contracts\Notifications\Factory as NotificationFactory;
+use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
+use MacropaySolutions\Kernel\Contracts\Translation\HasLocalePreference;
+use MacropaySolutions\Kernel\Notifications\AnonymousNotifiable;
+use MacropaySolutions\Kernel\Support\Collection;
+use MacropaySolutions\Kernel\Support\Str;
+use MacropaySolutions\Kernel\Support\Traits\Macroable;
+use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
 use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
 use PHPUnit\Framework\Assert as PHPUnit;
 
@@ -243,7 +243,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param mixed $notifiable
      * @param string $notification
      * @param callable|null $callback
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     public function sent($notifiable, $notification, $callback = null)
     {
@@ -287,7 +287,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
     /**
      * Send the given notification to the given notifiable entities.
      *
-     * @param \Illuminate\Support\Collection|array|mixed $notifiables
+     * @param \MacropaySolutions\Kernel\Support\Collection|array|mixed $notifiables
      * @param mixed $notification
      * @return void
      */
@@ -299,7 +299,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
     /**
      * Send the given notification immediately.
      *
-     * @param \Illuminate\Support\Collection|array|mixed $notifiables
+     * @param \MacropaySolutions\Kernel\Support\Collection|array|mixed $notifiables
      * @param mixed $notification
      * @param array|null $channels
      * @return void

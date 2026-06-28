@@ -3,8 +3,8 @@
 namespace {{ namespace }};
 
 use Closure;
-use Illuminate\View\Component;
-use Illuminate\Contracts\View\View;
+use MacropaySolutions\Kernel\View\Component;
+use MacropaySolutions\Kernel\Contracts\View\View;
 
 class {{ class }} extends Component
 {

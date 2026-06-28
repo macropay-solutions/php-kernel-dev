@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Concerns;
 
-use Illuminate\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
 use MacropaySolutions\KernelDev\Testing\ParallelConsoleOutput;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -161,7 +161,7 @@ trait RunsInParallel
     /**
      * Creates the application.
      *
-     * @return \Illuminate\Contracts\Foundation\Application
+     * @return \MacropaySolutions\Kernel\Contracts\Foundation\Application
      *
      * @throws \RuntimeException
      */

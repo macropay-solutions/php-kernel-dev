@@ -2,9 +2,9 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
-use Illuminate\Encryption\Encrypter;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Console\ConfirmableTrait;
+use MacropaySolutions\Kernel\Encryption\Encrypter;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'key:generate')]

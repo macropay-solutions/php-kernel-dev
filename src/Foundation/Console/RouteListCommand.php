@@ -3,13 +3,13 @@
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
 use Closure;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Routing\Route;
-use Illuminate\Routing\Router;
-use Illuminate\Routing\ViewController;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Contracts\Routing\UrlGenerator;
+use MacropaySolutions\Kernel\Routing\Route;
+use MacropaySolutions\Kernel\Routing\Router;
+use MacropaySolutions\Kernel\Routing\ViewController;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Str;
 use ReflectionClass;
 use ReflectionFunction;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -36,7 +36,7 @@ class RouteListCommand extends Command
     /**
      * The router instance.
      *
-     * @var \Illuminate\Routing\Router
+     * @var \MacropaySolutions\Kernel\Routing\Router
      */
     protected $router;
 
@@ -73,7 +73,7 @@ class RouteListCommand extends Command
     /**
      * Create a new route command instance.
      *
-     * @param \Illuminate\Routing\Router $router
+     * @param \MacropaySolutions\Kernel\Routing\Router $router
      * @return void
      */
     public function __construct(Router $router)
@@ -136,7 +136,7 @@ class RouteListCommand extends Command
     /**
      * Get the route information for a given route.
      *
-     * @param \Illuminate\Routing\Route $route
+     * @param \MacropaySolutions\Kernel\Routing\Route $route
      * @return array
      */
     protected function getRouteInformation(Route $route)
@@ -197,7 +197,7 @@ class RouteListCommand extends Command
     /**
      * Get the middleware for the route.
      *
-     * @param \Illuminate\Routing\Route $route
+     * @param \MacropaySolutions\Kernel\Routing\Route $route
      * @return string
      */
     protected function getMiddleware($route)
@@ -210,7 +210,7 @@ class RouteListCommand extends Command
     /**
      * Determine if the route has been defined outside of the application.
      *
-     * @param \Illuminate\Routing\Route $route
+     * @param \MacropaySolutions\Kernel\Routing\Route $route
      * @return bool
      */
     protected function isVendorRoute(Route $route)
@@ -240,14 +240,14 @@ class RouteListCommand extends Command
     /**
      * Determine if the route uses a framework controller.
      *
-     * @param \Illuminate\Routing\Route $route
+     * @param \MacropaySolutions\Kernel\Routing\Route $route
      * @return bool
      */
     protected function isFrameworkController(Route $route)
     {
         return in_array($route->getControllerClass(), [
-            '\Illuminate\Routing\RedirectController',
-            '\Illuminate\Routing\ViewController',
+            '\MacropaySolutions\Kernel\Routing\RedirectController',
+            '\MacropaySolutions\Kernel\Routing\ViewController',
         ], true);
     }
 
@@ -325,7 +325,7 @@ class RouteListCommand extends Command
     /**
      * Convert the given routes to JSON.
      *
-     * @param \Illuminate\Support\Collection $routes
+     * @param \MacropaySolutions\Kernel\Support\Collection $routes
      * @return string
      */
     protected function asJson($routes)
@@ -343,7 +343,7 @@ class RouteListCommand extends Command
     /**
      * Convert the given routes to regular CLI output.
      *
-     * @param \Illuminate\Support\Collection $routes
+     * @param \MacropaySolutions\Kernel\Support\Collection $routes
      * @return array
      */
     protected function forCli($routes)
@@ -460,7 +460,7 @@ class RouteListCommand extends Command
     /**
      * Determine and return the output for displaying the number of routes in the CLI output.
      *
-     * @param \Illuminate\Support\Collection $routes
+     * @param \MacropaySolutions\Kernel\Support\Collection $routes
      * @param int $terminalWidth
      * @return string
      */

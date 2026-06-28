@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Support\Arr;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'config:show')]

@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Fluent\Concerns;
 
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait Interaction

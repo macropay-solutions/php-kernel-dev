@@ -5,10 +5,10 @@ namespace MacropaySolutions\KernelDev\Database\Console;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\View;
-use Illuminate\Database\ConnectionInterface;
-use Illuminate\Database\ConnectionResolverInterface;
-use Illuminate\Database\Console\DatabaseInspectionCommand;
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Database\ConnectionInterface;
+use MacropaySolutions\Kernel\Database\ConnectionResolverInterface;
+use MacropaySolutions\Kernel\Database\Console\DatabaseInspectionCommand;
+use MacropaySolutions\Kernel\Support\Arr;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'db:show')]
@@ -34,7 +34,7 @@ class ShowCommand extends DatabaseInspectionCommand
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Database\ConnectionResolverInterface $connections
+     * @param \MacropaySolutions\Kernel\Database\ConnectionResolverInterface $connections
      * @return int
      */
     public function handle(ConnectionResolverInterface $connections)
@@ -71,9 +71,9 @@ class ShowCommand extends DatabaseInspectionCommand
     /**
      * Get information regarding the tables within the database.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \MacropaySolutions\Kernel\Database\ConnectionInterface $connection
      * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $schema
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function tables(ConnectionInterface $connection, AbstractSchemaManager $schema)
     {
@@ -89,9 +89,9 @@ class ShowCommand extends DatabaseInspectionCommand
     /**
      * Get information regarding the views within the database.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \MacropaySolutions\Kernel\Database\ConnectionInterface $connection
      * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $schema
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function collectViews(ConnectionInterface $connection, AbstractSchemaManager $schema)
     {

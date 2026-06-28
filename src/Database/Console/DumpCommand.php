@@ -2,12 +2,12 @@
 
 namespace MacropaySolutions\KernelDev\Database\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Connection;
-use Illuminate\Database\ConnectionResolverInterface;
-use Illuminate\Database\Events\SchemaDumped;
-use Illuminate\Filesystem\Filesystem;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Contracts\Events\Dispatcher;
+use MacropaySolutions\Kernel\Database\Connection;
+use MacropaySolutions\Kernel\Database\ConnectionResolverInterface;
+use MacropaySolutions\Kernel\Database\Events\SchemaDumped;
+use MacropaySolutions\Kernel\Filesystem\Filesystem;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'schema:dump')]
@@ -33,8 +33,8 @@ class DumpCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Database\ConnectionResolverInterface $connections
-     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+     * @param \MacropaySolutions\Kernel\Database\ConnectionResolverInterface $connections
+     * @param \MacropaySolutions\Kernel\Contracts\Events\Dispatcher $dispatcher
      * @return void
      */
     public function handle(ConnectionResolverInterface $connections, Dispatcher $dispatcher)
@@ -66,7 +66,7 @@ class DumpCommand extends Command
     /**
      * Create a schema state instance for the given connection.
      *
-     * @param \Illuminate\Database\Connection $connection
+     * @param \MacropaySolutions\Kernel\Database\Connection $connection
      * @return mixed
      */
     protected function schemaState(Connection $connection)
@@ -81,7 +81,7 @@ class DumpCommand extends Command
     /**
      * Get the path that the dump should be written to.
      *
-     * @param \Illuminate\Database\Connection $connection
+     * @param \MacropaySolutions\Kernel\Database\Connection $connection
      */
     protected function path(Connection $connection)
     {

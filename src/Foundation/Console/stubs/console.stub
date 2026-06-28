@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Console\Command;
+use MacropaySolutions\Kernel\Console\Command;
 
 class {{ class }} extends Command
 {

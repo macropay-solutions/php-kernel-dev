@@ -3,8 +3,8 @@
 namespace MacropaySolutions\KernelDev\Testing\Fluent\Concerns;
 
 use Closure;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
+use MacropaySolutions\Kernel\Contracts\Support\Arrayable;
+use MacropaySolutions\Kernel\Support\Collection;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait Matching

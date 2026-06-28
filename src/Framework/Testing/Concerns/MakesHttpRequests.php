@@ -2,9 +2,9 @@
 
 namespace MacropaySolutions\KernelDev\Framework\Testing\Concerns;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Http\Request;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\Framework\Http\Request as FrameworkRequest;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 use MacropaySolutions\KernelDev\Testing\TestResponse;
@@ -181,7 +181,7 @@ trait MakesHttpRequests
      *
      * This method allows you to fully customize the entire Request object.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \MacropaySolutions\Kernel\Http\Request $request
      * @return $this
      */
     public function handle(Request $request)

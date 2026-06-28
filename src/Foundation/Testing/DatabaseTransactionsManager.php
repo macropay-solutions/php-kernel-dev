@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing;
 
-use Illuminate\Database\DatabaseTransactionsManager as BaseManager;
+use MacropaySolutions\Kernel\Database\DatabaseTransactionsManager as BaseManager;
 
 class DatabaseTransactionsManager extends BaseManager
 {
@@ -27,7 +27,7 @@ class DatabaseTransactionsManager extends BaseManager
     /**
      * Get the transactions that are applicable to callbacks.
      *
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Database\DatabaseTransactionRecord>
+     * @return \MacropaySolutions\Kernel\Support\Collection<int, \MacropaySolutions\Kernel\Database\DatabaseTransactionRecord>
      */
     public function callbackApplicableTransactions()
     {

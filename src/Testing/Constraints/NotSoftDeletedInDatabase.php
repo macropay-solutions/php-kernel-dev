@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Constraints;
 
-use Illuminate\Database\Connection;
+use MacropaySolutions\Kernel\Database\Connection;
 use PHPUnit\Framework\Constraint\Constraint;
 
 class NotSoftDeletedInDatabase extends Constraint
@@ -17,7 +17,7 @@ class NotSoftDeletedInDatabase extends Constraint
     /**
      * The database connection.
      *
-     * @var \Illuminate\Database\Connection
+     * @var \MacropaySolutions\Kernel\Database\Connection
      */
     protected $database;
 
@@ -38,7 +38,7 @@ class NotSoftDeletedInDatabase extends Constraint
     /**
      * Create a new constraint instance.
      *
-     * @param \Illuminate\Database\Connection $database
+     * @param \MacropaySolutions\Kernel\Database\Connection $database
      * @param array $data
      * @param string $deletedAtColumn
      * @return void

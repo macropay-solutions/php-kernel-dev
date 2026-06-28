@@ -4,10 +4,10 @@ namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use Carbon\CarbonImmutable;
 use Closure;
-use Illuminate\Bus\BatchRepository;
-use Illuminate\Bus\PendingBatch;
-use Illuminate\Bus\UpdatedBatchJobCounts;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Bus\BatchRepository;
+use MacropaySolutions\Kernel\Bus\PendingBatch;
+use MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts;
+use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\KernelDev\Support\Testing\Fakes\BatchFake;
 
 class BatchRepositoryFake implements BatchRepository
@@ -15,7 +15,7 @@ class BatchRepositoryFake implements BatchRepository
     /**
      * The batches stored in the repository.
      *
-     * @var \Illuminate\Bus\Batch[]
+     * @var \MacropaySolutions\Kernel\Bus\Batch[]
      */
     protected $batches = [];
 
@@ -24,7 +24,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param int $limit
      * @param mixed $before
-     * @return \Illuminate\Bus\Batch[]
+     * @return \MacropaySolutions\Kernel\Bus\Batch[]
      */
     public function get($limit, $before)
     {
@@ -35,7 +35,7 @@ class BatchRepositoryFake implements BatchRepository
      * Retrieve information about an existing batch.
      *
      * @param string $batchId
-     * @return \Illuminate\Bus\Batch|null
+     * @return \MacropaySolutions\Kernel\Bus\Batch|null
      */
     public function find(string $batchId)
     {
@@ -45,8 +45,8 @@ class BatchRepositoryFake implements BatchRepository
     /**
      * Store a new pending batch.
      *
-     * @param \Illuminate\Bus\PendingBatch $batch
-     * @return \Illuminate\Bus\Batch
+     * @param \MacropaySolutions\Kernel\Bus\PendingBatch $batch
+     * @return \MacropaySolutions\Kernel\Bus\Batch
      */
     public function store(PendingBatch $batch)
     {
@@ -85,7 +85,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param string $batchId
      * @param string $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     * @return \MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts
      */
     public function decrementPendingJobs(string $batchId, string $jobId)
     {
@@ -97,7 +97,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param string $batchId
      * @param string $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     * @return \MacropaySolutions\Kernel\Bus\UpdatedBatchJobCounts
      */
     public function incrementFailedJobs(string $batchId, string $jobId)
     {

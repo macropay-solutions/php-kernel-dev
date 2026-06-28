@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
+use MacropaySolutions\Kernel\Contracts\Debug\ExceptionHandler;
 use MacropaySolutions\KernelDev\Testing\Assert;
-use Illuminate\Validation\ValidationException;
+use MacropaySolutions\Kernel\Validation\ValidationException;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -15,7 +15,7 @@ trait InteractsWithExceptionHandling
     /**
      * The original exception handler.
      *
-     * @var \Illuminate\Contracts\Debug\ExceptionHandler|null
+     * @var \MacropaySolutions\Kernel\Contracts\Debug\ExceptionHandler|null
      */
     protected $originalExceptionHandler;
 
@@ -75,7 +75,7 @@ trait InteractsWithExceptionHandling
                 /**
                  * Create a new class instance.
                  *
-                 * @param \Illuminate\Contracts\Debug\ExceptionHandler $originalHandler
+                 * @param \MacropaySolutions\Kernel\Contracts\Debug\ExceptionHandler $originalHandler
                  * @param array $except
                  * @return void
                  */
@@ -112,7 +112,7 @@ trait InteractsWithExceptionHandling
                 /**
                  * Render an exception into an HTTP response.
                  *
-                 * @param \Illuminate\Http\Request $request
+                 * @param \MacropaySolutions\Kernel\Http\Request $request
                  * @param \Throwable $e
                  * @return \Symfony\Component\HttpFoundation\Response
                  *

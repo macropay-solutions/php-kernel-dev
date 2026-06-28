@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing;
 
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Database\ConnectionInterface;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\Database\ConnectionInterface;
 use MacropaySolutions\KernelDev\Foundation\Testing\Traits\CanConfigureMigrationCommands;
 
 trait DatabaseTruncation
@@ -73,7 +73,7 @@ trait DatabaseTruncation
     /**
      * Truncate the database tables for the given database connection.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \MacropaySolutions\Kernel\Database\ConnectionInterface $connection
      * @param string|null $name
      * @return void
      */
@@ -98,7 +98,7 @@ trait DatabaseTruncation
     /**
      * Remove the table prefix from a table name, if it exists.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \MacropaySolutions\Kernel\Database\ConnectionInterface $connection
      * @param string $table
      * @return string
      */

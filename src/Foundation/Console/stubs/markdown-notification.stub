@@ -2,10 +2,10 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use MacropaySolutions\Kernel\Bus\Queueable;
+use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
+use MacropaySolutions\Kernel\Notifications\Messages\MailMessage;
+use MacropaySolutions\Kernel\Notifications\Notification;
 
 class {{ class }} extends Notification
 {

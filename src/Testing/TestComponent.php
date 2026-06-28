@@ -10,7 +10,7 @@ class TestComponent
     /**
      * The original component.
      *
-     * @var \Illuminate\View\Component
+     * @var \MacropaySolutions\Kernel\View\Component
      */
     public $component;
 
@@ -24,8 +24,8 @@ class TestComponent
     /**
      * Create a new test component instance.
      *
-     * @param \Illuminate\View\Component $component
-     * @param \Illuminate\View\View $view
+     * @param \MacropaySolutions\Kernel\View\Component $component
+     * @param \MacropaySolutions\Kernel\View\View $view
      * @return void
      */
     public function __construct($component, $view)

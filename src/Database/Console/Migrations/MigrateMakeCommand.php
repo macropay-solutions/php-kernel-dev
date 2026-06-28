@@ -2,11 +2,11 @@
 
 namespace MacropaySolutions\KernelDev\Database\Console\Migrations;
 
-use Illuminate\Contracts\Console\PromptsForMissingInput;
-use Illuminate\Database\Console\Migrations\BaseCommand;
-use Illuminate\Database\Console\Migrations\TableGuesser;
-use Illuminate\Support\Composer;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Contracts\Console\PromptsForMissingInput;
+use MacropaySolutions\Kernel\Database\Console\Migrations\BaseCommand;
+use MacropaySolutions\Kernel\Database\Console\Migrations\TableGuesser;
+use MacropaySolutions\Kernel\Support\Composer;
+use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\KernelDev\Database\Migrations\MigrationCreator;
 
 class MigrateMakeCommand extends BaseCommand implements PromptsForMissingInput
@@ -40,7 +40,7 @@ class MigrateMakeCommand extends BaseCommand implements PromptsForMissingInput
     /**
      * The Composer instance.
      *
-     * @var \Illuminate\Support\Composer
+     * @var \MacropaySolutions\Kernel\Support\Composer
      *
      * @deprecated Will be removed in a future Kernel version.
      */

@@ -4,11 +4,11 @@ namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
 use BadMethodCallException;
 use Closure;
-use Illuminate\Contracts\Queue\Queue;
-use Illuminate\Queue\CallQueuedClosure;
-use Illuminate\Queue\QueueManager;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Traits\ReflectsClosures;
+use MacropaySolutions\Kernel\Contracts\Queue\Queue;
+use MacropaySolutions\Kernel\Queue\CallQueuedClosure;
+use MacropaySolutions\Kernel\Queue\QueueManager;
+use MacropaySolutions\Kernel\Support\Collection;
+use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
 use MacropaySolutions\KernelDev\Support\Testing\Fakes\Fake;
 use PHPUnit\Framework\Assert as PHPUnit;
 
@@ -19,21 +19,21 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * The original queue manager.
      *
-     * @var \Illuminate\Contracts\Queue\Queue
+     * @var \MacropaySolutions\Kernel\Contracts\Queue\Queue
      */
     public $queue;
 
     /**
      * The job types that should be intercepted instead of pushed to the queue.
      *
-     * @var \Illuminate\Support\Collection
+     * @var \MacropaySolutions\Kernel\Support\Collection
      */
     protected $jobsToFake;
 
     /**
      * The job types that should be pushed to the queue and not intercepted.
      *
-     * @var \Illuminate\Support\Collection
+     * @var \MacropaySolutions\Kernel\Support\Collection
      */
     protected $jobsToBeQueued;
 
@@ -54,9 +54,9 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Create a new fake queue instance.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \MacropaySolutions\Kernel\Contracts\Foundation\Application $app
      * @param array $jobsToFake
-     * @param \Illuminate\Queue\QueueManager|null $queue
+     * @param \MacropaySolutions\Kernel\Queue\QueueManager|null $queue
      * @return void
      */
     public function __construct($app, $jobsToFake = [], $queue = null)
@@ -98,7 +98,7 @@ class QueueFake extends QueueManager implements Fake, Queue
 
         if (\is_array($job)) {
             $expectedCallable = $job;
-            $job = \Illuminate\Queue\CallQueuedCallable::class;
+            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
 
             $callback = function ($pushedJob) use ($expectedCallable): bool {
                 return $pushedJob->storableCallable === $expectedCallable;
@@ -129,7 +129,7 @@ class QueueFake extends QueueManager implements Fake, Queue
 
         if (\is_array($job)) {
             $expectedCallable = $job;
-            $job = \Illuminate\Queue\CallQueuedCallable::class;
+            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
 
             $callback = function ($pushedJob) use ($expectedCallable): bool {
                 return $pushedJob->storableCallable === $expectedCallable;
@@ -161,7 +161,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         if (\is_array($job)) {
             $expectedCallable = $job;
-            $job = \Illuminate\Queue\CallQueuedCallable::class;
+            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
 
             $callback = function ($pushedJob) use ($expectedCallable): bool {
                 return $pushedJob->storableCallable === $expectedCallable;
@@ -239,7 +239,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         $chain = collect($expectedChain)->map(function ($chainedJob) {
             if (\is_array($chainedJob)) {
-                return serialize(\Illuminate\Queue\CallQueuedCallable::create($chainedJob));
+                return serialize(\MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($chainedJob));
             }
 
             return serialize($chainedJob);
@@ -319,7 +319,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         if (\is_array($job)) {
             $expectedCallable = $job;
-            $job = \Illuminate\Queue\CallQueuedCallable::class;
+            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
 
             $callback = function ($pushedJob) use ($expectedCallable): bool {
                 return $pushedJob->storableCallable === $expectedCallable;
@@ -369,7 +369,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param string $job
      * @param callable|null $callback
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     public function pushed($job, $callback = null)
     {
@@ -399,7 +399,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Resolve a queue connection instance.
      *
      * @param mixed $name
-     * @return \Illuminate\Contracts\Queue\Queue
+     * @return \MacropaySolutions\Kernel\Contracts\Queue\Queue
      */
     public function connection($name = null)
     {
@@ -430,7 +430,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     public function push($job, $data = '', $queue = null)
     {
         if (\is_array($job)) {
-            $job = \Illuminate\Queue\CallQueuedCallable::create($job);
+            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($job);
         }
 
         if ($this->shouldFakeJob($job)) {
@@ -473,7 +473,7 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         return $this->jobsToFake->contains(function ($jobToFake) use ($job): bool {
-            if (\is_array($jobToFake) && $job instanceof \Illuminate\Queue\CallQueuedCallable) {
+            if (\is_array($jobToFake) && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
                 return $job->storableCallable === $jobToFake;
             }
 
@@ -494,7 +494,7 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         return $this->jobsToBeQueued->contains(function ($jobToQueue) use ($job): bool {
-            if (\is_array($jobToQueue) && $job instanceof \Illuminate\Queue\CallQueuedCallable) {
+            if (\is_array($jobToQueue) && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
                 return $job->storableCallable === $jobToQueue;
             }
 
@@ -560,7 +560,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Pop the next job off of the queue.
      *
      * @param string|null $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     * @return \MacropaySolutions\Kernel\Contracts\Queue\Job|null
      */
     public function pop($queue = null)
     {

@@ -6,11 +6,11 @@ use BackedEnum;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Types\DecimalType;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Console\DatabaseInspectionCommand;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Contracts\Container\BindingResolutionException;
+use MacropaySolutions\Kernel\Database\Console\DatabaseInspectionCommand;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Database\Obvious\Relations\Relation;
+use MacropaySolutions\Kernel\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use SplFileObject;
@@ -33,7 +33,7 @@ class ShowModelCommand extends DatabaseInspectionCommand
      *
      * @var string
      */
-    protected $description = 'Show information about an Eloquent model';
+    protected $description = 'Show information about an Obvious model';
 
     /**
      * The console command signature.
@@ -104,12 +104,12 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the first policy associated with this model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return string
      */
     protected function getPolicy($model)
     {
-        $policy = \app(\Illuminate\Contracts\Auth\Access\Gate::class)->getPolicyFor($model::class);
+        $policy = \app(\MacropaySolutions\Kernel\Contracts\Auth\Access\Gate::class)->getPolicyFor($model::class);
 
         return $policy ? $policy::class : null;
     }
@@ -117,8 +117,8 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the column attributes for the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Support\Collection
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getAttributes($model)
     {
@@ -149,9 +149,9 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the virtual (non-column) attributes for the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @param \Doctrine\DBAL\Schema\Column[] $columns
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getVirtualAttributes($model, $columns)
     {
@@ -191,8 +191,8 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the relations from the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Support\Collection
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getRelations($model)
     {
@@ -235,21 +235,21 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the Observers watching this model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Support\Collection
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getObservers($model)
     {
         $listeners = $this->getApp()->make('events')->getRawListeners();
 
-        // Get the Eloquent observers for this model...
+        // Get the Obvious observers for this model...
         $listeners = array_filter($listeners, function ($v, $key) use ($model) {
-            return Str::startsWith($key, 'eloquent.') && Str::endsWith($key, $model::class);
+            return Str::startsWith($key, 'obvious.') && Str::endsWith($key, $model::class);
         }, ARRAY_FILTER_USE_BOTH);
 
-        // Format listeners Eloquent verb => Observer methods...
+        // Format listeners Obvious verb => Observer methods...
         $extractVerb = function ($key) {
-            preg_match('/eloquent.([a-zA-Z]+)\: /', $key, $matches);
+            preg_match('/obvious.([a-zA-Z]+)\: /', $key, $matches);
 
             return $matches[1] ?? '?';
         };
@@ -273,9 +273,9 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * @param string $database
      * @param string $table
      * @param string $policy
-     * @param \Illuminate\Support\Collection $attributes
-     * @param \Illuminate\Support\Collection $relations
-     * @param \Illuminate\Support\Collection $observers
+     * @param \MacropaySolutions\Kernel\Support\Collection $attributes
+     * @param \MacropaySolutions\Kernel\Support\Collection $relations
+     * @param \MacropaySolutions\Kernel\Support\Collection $observers
      * @return void
      */
     protected function display($class, $database, $table, $policy, $attributes, $relations, $observers)
@@ -292,9 +292,9 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * @param string $database
      * @param string $table
      * @param string $policy
-     * @param \Illuminate\Support\Collection $attributes
-     * @param \Illuminate\Support\Collection $relations
-     * @param \Illuminate\Support\Collection $observers
+     * @param \MacropaySolutions\Kernel\Support\Collection $attributes
+     * @param \MacropaySolutions\Kernel\Support\Collection $relations
+     * @param \MacropaySolutions\Kernel\Support\Collection $observers
      * @return void
      */
     protected function displayJson($class, $database, $table, $policy, $attributes, $relations, $observers)
@@ -319,9 +319,9 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * @param string $database
      * @param string $table
      * @param string $policy
-     * @param \Illuminate\Support\Collection $attributes
-     * @param \Illuminate\Support\Collection $relations
-     * @param \Illuminate\Support\Collection $observers
+     * @param \MacropaySolutions\Kernel\Support\Collection $attributes
+     * @param \MacropaySolutions\Kernel\Support\Collection $relations
+     * @param \MacropaySolutions\Kernel\Support\Collection $observers
      * @return void
      */
     protected function displayCli($class, $database, $table, $policy, $attributes, $relations, $observers)
@@ -401,7 +401,7 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * Get the cast type for the given column.
      *
      * @param string $column
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return string|null
      */
     protected function getCastType($column, $model)
@@ -420,8 +420,8 @@ class ShowModelCommand extends DatabaseInspectionCommand
     /**
      * Get the model casts, including any date casts.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Support\Collection
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getCastsWithDates($model)
     {
@@ -460,7 +460,7 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * Get the default value for the given column.
      *
      * @param \Doctrine\DBAL\Schema\Column $column
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return mixed|null
      */
     protected function getColumnDefault($column, $model)
@@ -478,7 +478,7 @@ class ShowModelCommand extends DatabaseInspectionCommand
      * Determine if the given attribute is hidden.
      *
      * @param string $attribute
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return bool
      */
     protected function attributeIsHidden($attribute, $model)

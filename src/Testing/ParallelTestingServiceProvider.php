@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
-use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Support\ServiceProvider;
+use MacropaySolutions\Kernel\Contracts\Support\DeferrableProvider;
+use MacropaySolutions\Kernel\Support\ServiceProvider;
 use MacropaySolutions\KernelDev\Testing\Concerns\TestCaches;
 use MacropaySolutions\KernelDev\Testing\Concerns\TestDatabases;
 use MacropaySolutions\KernelDev\Testing\Concerns\TestViews;

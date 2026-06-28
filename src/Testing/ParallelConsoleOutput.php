@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Support\Str;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class ParallelConsoleOutput extends ConsoleOutput

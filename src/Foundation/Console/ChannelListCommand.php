@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
 use Closure;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Broadcasting\Broadcaster;
-use Illuminate\Support\Collection;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Contracts\Broadcasting\Broadcaster;
+use MacropaySolutions\Kernel\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Terminal;
 
@@ -74,7 +74,7 @@ class ChannelListCommand extends Command
     /**
      * Convert the given channels to regular CLI output.
      *
-     * @param \Illuminate\Support\Collection $channels
+     * @param \MacropaySolutions\Kernel\Support\Collection $channels
      * @return array
      */
     protected function forCli($channels)
@@ -120,7 +120,7 @@ class ChannelListCommand extends Command
     /**
      * Determine and return the output for displaying the number of registered channels in the CLI output.
      *
-     * @param \Illuminate\Support\Collection $channels
+     * @param \MacropaySolutions\Kernel\Support\Collection $channels
      * @param int $terminalWidth
      * @return string
      */

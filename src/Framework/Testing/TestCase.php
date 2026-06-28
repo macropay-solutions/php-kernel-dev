@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Framework\Testing;
 
 use Exception;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\View\Component;
+use MacropaySolutions\Kernel\Contracts\Auth\Authenticatable;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\View\Component;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -203,7 +203,7 @@ abstract class TestCase extends BaseTestCase
     {
         $events = is_array($events) ? $events : func_get_args();
 
-        $mock = Mockery::spy(\Illuminate\Contracts\Events\Dispatcher::class);
+        $mock = Mockery::spy(\MacropaySolutions\Kernel\Contracts\Events\Dispatcher::class);
 
         $mock->shouldReceive('dispatch')->andReturnUsing(function ($called) use (&$events) {
             foreach ($events as $key => $event) {
@@ -237,7 +237,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function withoutEvents()
     {
-        $mock = Mockery::mock(\Illuminate\Contracts\Events\Dispatcher::class);
+        $mock = Mockery::mock(\MacropaySolutions\Kernel\Contracts\Events\Dispatcher::class);
 
         $mock->shouldReceive('dispatch');
 
@@ -258,7 +258,7 @@ abstract class TestCase extends BaseTestCase
     {
         $jobs = is_array($jobs) ? $jobs : func_get_args();
 
-        $mock = Mockery::mock('Illuminate\Bus\Dispatcher[dispatch]', [$this->app]);
+        $mock = Mockery::mock('MacropaySolutions\Kernel\Bus\Dispatcher[dispatch]', [$this->app]);
 
         foreach ($jobs as $job) {
             $mock->shouldReceive('dispatch')->atLeast()->once()
@@ -266,7 +266,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         $this->app->instance(
-            \Illuminate\Contracts\Bus\Dispatcher::class,
+            \MacropaySolutions\Kernel\Contracts\Bus\Dispatcher::class,
             $mock
         );
 
@@ -280,14 +280,14 @@ abstract class TestCase extends BaseTestCase
      */
     protected function withoutJobs()
     {
-        $mock = Mockery::mock('Illuminate\Bus\Dispatcher[dispatch]', [$this->app]);
+        $mock = Mockery::mock('MacropaySolutions\Kernel\Bus\Dispatcher[dispatch]', [$this->app]);
 
         $mock->shouldReceive('dispatch')->andReturnUsing(function ($dispatched) {
             $this->dispatchedJobs[] = $dispatched;
         });
 
         $this->app->instance(
-            \Illuminate\Contracts\Bus\Dispatcher::class,
+            \MacropaySolutions\Kernel\Contracts\Bus\Dispatcher::class,
             $mock
         );
 
@@ -297,7 +297,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set the currently logged in user for the application.
      *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \MacropaySolutions\Kernel\Contracts\Auth\Authenticatable $user
      * @param string|null $driver
      * @return $this
      */
@@ -311,7 +311,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set the currently logged in user for the application.
      *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \MacropaySolutions\Kernel\Contracts\Auth\Authenticatable $user
      * @param string|null $driver
      * @return void
      */

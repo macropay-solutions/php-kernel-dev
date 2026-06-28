@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
 use Closure;
-use Illuminate\Console\Command;
-use Illuminate\Support\Composer;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Support\Composer;
+use MacropaySolutions\Kernel\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'about')]
@@ -29,7 +29,7 @@ class AboutCommand extends Command
     /**
      * The Composer instance.
      *
-     * @var \Illuminate\Support\Composer
+     * @var \MacropaySolutions\Kernel\Support\Composer
      */
     protected $composer;
 
@@ -50,7 +50,7 @@ class AboutCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param \Illuminate\Support\Composer $composer
+     * @param \MacropaySolutions\Kernel\Support\Composer $composer
      * @return void
      */
     public function __construct(Composer $composer)
@@ -103,7 +103,7 @@ class AboutCommand extends Command
     /**
      * Display the application information.
      *
-     * @param \Illuminate\Support\Collection $data
+     * @param \MacropaySolutions\Kernel\Support\Collection $data
      * @return void
      */
     protected function display($data)
@@ -114,7 +114,7 @@ class AboutCommand extends Command
     /**
      * Display the application information as a detail view.
      *
-     * @param \Illuminate\Support\Collection $data
+     * @param \MacropaySolutions\Kernel\Support\Collection $data
      * @return void
      */
     protected function displayDetail($data)
@@ -135,7 +135,7 @@ class AboutCommand extends Command
     /**
      * Display the application information as JSON.
      *
-     * @param \Illuminate\Support\Collection $data
+     * @param \MacropaySolutions\Kernel\Support\Collection $data
      * @return void
      */
     protected function displayJson($data)

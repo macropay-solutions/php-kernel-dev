@@ -3,16 +3,16 @@
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Console\Application as ConsoleApp;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Middleware\ConvertEmptyStringsToNull;
-use Illuminate\Http\Middleware\TrimStrings;
-use Illuminate\Queue\Queue;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\Sleep;
-use Illuminate\Support\Str;
-use Illuminate\View\Component;
+use MacropaySolutions\Kernel\Console\Application as ConsoleApp;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Http\Middleware\ConvertEmptyStringsToNull;
+use MacropaySolutions\Kernel\Http\Middleware\TrimStrings;
+use MacropaySolutions\Kernel\Queue\Queue;
+use MacropaySolutions\Kernel\Support\Carbon;
+use MacropaySolutions\Kernel\Support\Facades\Facade;
+use MacropaySolutions\Kernel\Support\Sleep;
+use MacropaySolutions\Kernel\Support\Str;
+use MacropaySolutions\Kernel\View\Component;
 use MacropaySolutions\KernelDev\Foundation\Console\AboutCommand;
 use MacropaySolutions\KernelDev\Foundation\Testing\DatabaseMigrations;
 use MacropaySolutions\KernelDev\Foundation\Testing\DatabaseTransactions;
@@ -29,7 +29,7 @@ use Throwable;
 trait InteractsWithTestCaseLifecycle
 {
     /**
-     * The Illuminate application instance.
+     * The MacropaySolutions Kernel application instance.
      *
      * @var \MacropaySolutions\Framework\Application
      */

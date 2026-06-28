@@ -3,7 +3,7 @@
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use Closure;
-use Illuminate\Support\HtmlString;
+use MacropaySolutions\Kernel\Support\HtmlString;
 use Mockery;
 
 trait InteractsWithContainer

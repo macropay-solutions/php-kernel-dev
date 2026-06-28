@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
-use Illuminate\Contracts\Mail\Mailable;
-use Illuminate\Mail\PendingMail;
+use MacropaySolutions\Kernel\Contracts\Mail\Mailable;
+use MacropaySolutions\Kernel\Mail\PendingMail;
 
 class PendingMailFake extends PendingMail
 {
@@ -21,7 +21,7 @@ class PendingMailFake extends PendingMail
     /**
      * Send a new mailable message instance.
      *
-     * @param \Illuminate\Contracts\Mail\Mailable $mailable
+     * @param \MacropaySolutions\Kernel\Contracts\Mail\Mailable $mailable
      * @return void
      */
     public function send(Mailable $mailable)
@@ -32,7 +32,7 @@ class PendingMailFake extends PendingMail
     /**
      * Push the given mailable onto the queue.
      *
-     * @param \Illuminate\Contracts\Mail\Mailable $mailable
+     * @param \MacropaySolutions\Kernel\Contracts\Mail\Mailable $mailable
      * @return mixed
      */
     public function queue(Mailable $mailable)

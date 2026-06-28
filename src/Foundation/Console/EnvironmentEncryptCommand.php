@@ -3,10 +3,10 @@
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
 use Exception;
-use Illuminate\Console\Command;
-use Illuminate\Encryption\Encrypter;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Encryption\Encrypter;
+use MacropaySolutions\Kernel\Filesystem\Filesystem;
+use MacropaySolutions\Kernel\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'env:encrypt')]
@@ -33,14 +33,14 @@ class EnvironmentEncryptCommand extends Command
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var \MacropaySolutions\Kernel\Filesystem\Filesystem
      */
     protected $files;
 
     /**
      * Create a new command instance.
      *
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \MacropaySolutions\Kernel\Filesystem\Filesystem $files
      * @return void
      */
     public function __construct(Filesystem $files)

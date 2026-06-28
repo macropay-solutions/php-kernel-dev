@@ -5,9 +5,9 @@ namespace MacropaySolutions\KernelDev\Testing;
 use ArrayAccess;
 use Closure;
 use Countable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Contracts\Support\Jsonable;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Str;
 use JsonSerializable;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 
@@ -16,7 +16,7 @@ class AssertableJsonString implements ArrayAccess, Countable
     /**
      * The original encoded json.
      *
-     * @var \Illuminate\Contracts\Support\Jsonable|\JsonSerializable|array|string
+     * @var \MacropaySolutions\Kernel\Contracts\Support\Jsonable|\JsonSerializable|array|string
      */
     public $json;
 
@@ -30,7 +30,7 @@ class AssertableJsonString implements ArrayAccess, Countable
     /**
      * Create a new assertable JSON string instance.
      *
-     * @param \Illuminate\Contracts\Support\Jsonable|\JsonSerializable|array|string $jsonable
+     * @param \MacropaySolutions\Kernel\Contracts\Support\Jsonable|\JsonSerializable|array|string $jsonable
      * @return void
      */
     public function __construct($jsonable)

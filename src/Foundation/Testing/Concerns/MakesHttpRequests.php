@@ -2,9 +2,9 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
-use Illuminate\Contracts\Http\Kernel as HttpKernel;
-use Illuminate\Cookie\CookieValuePrefix;
-use Illuminate\Http\Request;
+use MacropaySolutions\Kernel\Contracts\Http\Kernel as HttpKernel;
+use MacropaySolutions\Kernel\Cookie\CookieValuePrefix;
+use MacropaySolutions\Kernel\Http\Request;
 use MacropaySolutions\KernelDev\Testing\LoggedExceptionCollection;
 use MacropaySolutions\KernelDev\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
@@ -703,8 +703,8 @@ trait MakesHttpRequests
     /**
      * Follow a redirect chain until a non-redirect is received.
      *
-     * @param \Illuminate\Http\Response|\MacropaySolutions\KernelDev\Testing\TestResponse $response
-     * @return \Illuminate\Http\Response|\MacropaySolutions\KernelDev\Testing\TestResponse
+     * @param \MacropaySolutions\Kernel\Http\Response|\MacropaySolutions\KernelDev\Testing\TestResponse $response
+     * @return \MacropaySolutions\Kernel\Http\Response|\MacropaySolutions\KernelDev\Testing\TestResponse
      */
     protected function followRedirects($response)
     {
@@ -721,7 +721,7 @@ trait MakesHttpRequests
      * Create the request instance used for testing from the given Symfony request.
      *
      * @param \Symfony\Component\HttpFoundation\Request $symfonyRequest
-     * @return \Illuminate\Http\Request
+     * @return \MacropaySolutions\Kernel\Http\Request
      */
     protected function createTestRequest($symfonyRequest)
     {
@@ -731,7 +731,7 @@ trait MakesHttpRequests
     /**
      * Create the test response instance from the given response.
      *
-     * @param \Illuminate\Http\Response $response
+     * @param \MacropaySolutions\Kernel\Http\Response $response
      * @return \MacropaySolutions\KernelDev\Testing\TestResponse
      */
     protected function createTestResponse($response)

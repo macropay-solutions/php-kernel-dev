@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 
-use Illuminate\Bus\PendingBatch;
-use Illuminate\Support\Collection;
+use MacropaySolutions\Kernel\Bus\PendingBatch;
+use MacropaySolutions\Kernel\Support\Collection;
 use MacropaySolutions\KernelDev\Support\Testing\Fakes\BusFake;
 
 class PendingBatchFake extends PendingBatch
@@ -19,7 +19,7 @@ class PendingBatchFake extends PendingBatch
      * Create a new pending batch instance.
      *
      * @param \MacropaySolutions\KernelDev\Support\Testing\Fakes\BusFake $bus
-     * @param \Illuminate\Support\Collection $jobs
+     * @param \MacropaySolutions\Kernel\Support\Collection $jobs
      * @return void
      */
     public function __construct(BusFake $bus, Collection $jobs)
@@ -31,7 +31,7 @@ class PendingBatchFake extends PendingBatch
     /**
      * Dispatch the batch.
      *
-     * @return \Illuminate\Bus\Batch
+     * @return \MacropaySolutions\Kernel\Bus\Batch
      */
     public function dispatch()
     {
@@ -41,7 +41,7 @@ class PendingBatchFake extends PendingBatch
     /**
      * Dispatch the batch after the response is sent to the browser.
      *
-     * @return \Illuminate\Bus\Batch
+     * @return \MacropaySolutions\Kernel\Bus\Batch
      */
     public function dispatchAfterResponse()
     {

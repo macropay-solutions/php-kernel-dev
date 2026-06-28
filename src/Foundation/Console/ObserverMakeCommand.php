@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\GeneratorCommand;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
 use InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;

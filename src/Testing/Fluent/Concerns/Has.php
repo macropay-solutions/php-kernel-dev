@@ -3,7 +3,7 @@
 namespace MacropaySolutions\KernelDev\Testing\Fluent\Concerns;
 
 use Closure;
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Support\Arr;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait Has

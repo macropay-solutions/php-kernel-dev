@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev;
 
-use Illuminate\Support\ServiceProvider as ParentServiceProvider;
+use MacropaySolutions\Kernel\Support\ServiceProvider as ParentServiceProvider;
 use MacropaySolutions\KernelDev\Console\Scheduling\ScheduleListCommand;
 use MacropaySolutions\KernelDev\Console\Scheduling\ScheduleTestCommand;
 use MacropaySolutions\KernelDev\Database\Console\Factories\FactoryMakeCommand;

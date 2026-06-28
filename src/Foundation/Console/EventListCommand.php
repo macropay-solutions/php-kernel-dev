@@ -3,9 +3,9 @@
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
 use Closure;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Contracts\Broadcasting\ShouldBroadcast;
+use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
 use ReflectionFunction;
 use Symfony\Component\Console\Attribute\AsCommand;
 
@@ -61,7 +61,7 @@ class EventListCommand extends Command
     /**
      * Get all of the events and listeners configured for the application.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function getEvents()
     {
@@ -162,8 +162,8 @@ class EventListCommand extends Command
     /**
      * Filter the given events using the provided event name filter.
      *
-     * @param \Illuminate\Support\Collection $events
-     * @return \Illuminate\Support\Collection
+     * @param \MacropaySolutions\Kernel\Support\Collection $events
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     protected function filterEvents($events)
     {
@@ -199,7 +199,7 @@ class EventListCommand extends Command
     /**
      * Get the event dispatcher.
      *
-     * @return \Illuminate\Events\Dispatcher
+     * @return \MacropaySolutions\Kernel\Events\Dispatcher
      */
     public function getEventsDispatcher()
     {

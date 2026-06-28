@@ -2,14 +2,14 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Scope;
+use MacropaySolutions\Kernel\Database\Obvious\Builder;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Database\Obvious\Scope;
 
 class {{ class }} implements Scope
 {
     /**
-     * Apply the scope to a given Eloquent query builder.
+     * Apply the scope to a given Obvious query builder.
      */
     public function apply(Builder $builder, Model $model): void
     {

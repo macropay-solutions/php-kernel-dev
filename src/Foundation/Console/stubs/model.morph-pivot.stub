@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use MacropaySolutions\Kernel\Database\Obvious\Relations\MorphPivot;
 
 class {{ class }} extends MorphPivot
 {

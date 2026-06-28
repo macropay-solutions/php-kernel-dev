@@ -2,12 +2,12 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use MacropaySolutions\Kernel\Contracts\Support\Jsonable;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Database\Obvious\SoftDeletes;
+use MacropaySolutions\Kernel\Database\Events\QueryExecuted;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Facades\DB;
 use MacropaySolutions\KernelDev\Testing\Constraints\CountInDatabase;
 use MacropaySolutions\KernelDev\Testing\Constraints\HasInDatabase;
 use MacropaySolutions\KernelDev\Testing\Constraints\NotSoftDeletedInDatabase;
@@ -19,7 +19,7 @@ trait InteractsWithDatabase
     /**
      * Assert that a given where condition exists in the database.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param array $data
      * @param string|null $connection
      * @return $this
@@ -37,7 +37,7 @@ trait InteractsWithDatabase
     /**
      * Assert that a given where condition does not exist in the database.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param array $data
      * @param string|null $connection
      * @return $this
@@ -56,7 +56,7 @@ trait InteractsWithDatabase
     /**
      * Assert the count of table entries.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param int $count
      * @param string|null $connection
      * @return $this
@@ -74,7 +74,7 @@ trait InteractsWithDatabase
     /**
      * Assert that the given table has no entries.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param string|null $connection
      * @return $this
      */
@@ -91,7 +91,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given record has been "soft deleted".
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param array $data
      * @param string|null $connection
      * @param string|null $deletedAtColumn
@@ -123,7 +123,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given record has not been "soft deleted".
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @param array $data
      * @param string|null $connection
      * @param string|null $deletedAtColumn
@@ -159,7 +159,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given model exists in the database.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return $this
      */
     protected function assertModelExists($model)
@@ -174,7 +174,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given model does not exist in the database.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model $model
      * @return $this
      */
     protected function assertModelMissing($model)
@@ -235,7 +235,7 @@ trait InteractsWithDatabase
      * Cast a JSON string to a database compatible type.
      *
      * @param array|object|string $value
-     * @return \Illuminate\Contracts\Database\Query\Expression
+     * @return \MacropaySolutions\Kernel\Contracts\Database\Query\Expression
      */
     public function castAsJson($value)
     {
@@ -257,7 +257,7 @@ trait InteractsWithDatabase
      *
      * @param string|null $connection
      * @param string|null $table
-     * @return \Illuminate\Database\Connection
+     * @return \MacropaySolutions\Kernel\Database\Connection
      */
     protected function getConnection($connection = null, $table = null)
     {
@@ -271,7 +271,7 @@ trait InteractsWithDatabase
     /**
      * Get the table name from the given model or string.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @return string
      */
     protected function getTable($table)
@@ -282,7 +282,7 @@ trait InteractsWithDatabase
     /**
      * Get the table connection specified in the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
      * @return string|null
      */
     protected function getTableConnection($table)
@@ -305,8 +305,8 @@ trait InteractsWithDatabase
     /**
      * Get the model entity from the given model or string.
      *
-     * @param \Illuminate\Database\Eloquent\Model|string $table
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @param \MacropaySolutions\Kernel\Database\Obvious\Model|string $table
+     * @return \MacropaySolutions\Kernel\Database\Obvious\Model|null
      */
     protected function newModelFor($table)
     {

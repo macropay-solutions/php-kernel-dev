@@ -4,21 +4,21 @@ namespace MacropaySolutions\KernelDev\Testing;
 
 use ArrayAccess;
 use Closure;
-use Illuminate\Contracts\Support\MessageBag;
-use Illuminate\Contracts\View\View;
-use Illuminate\Cookie\CookieValuePrefix;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use Illuminate\Support\Traits\Conditionable;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Support\Traits\Tappable;
-use Illuminate\Support\ViewErrorBag;
+use MacropaySolutions\Kernel\Contracts\Support\MessageBag;
+use MacropaySolutions\Kernel\Contracts\View\View;
+use MacropaySolutions\Kernel\Cookie\CookieValuePrefix;
+use MacropaySolutions\Kernel\Database\Obvious\Collection as ObviousCollection;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Http\RedirectResponse;
+use MacropaySolutions\Kernel\Http\Request;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Carbon;
+use MacropaySolutions\Kernel\Support\Collection;
+use MacropaySolutions\Kernel\Support\Str;
+use MacropaySolutions\Kernel\Support\Traits\Conditionable;
+use MacropaySolutions\Kernel\Support\Traits\Macroable;
+use MacropaySolutions\Kernel\Support\Traits\Tappable;
+use MacropaySolutions\Kernel\Support\ViewErrorBag;
 use LogicException;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 use MacropaySolutions\KernelDev\Testing\Constraints\SeeInOrder;
@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\StreamedJsonResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
- * @mixin \Illuminate\Http\Response
+ * @mixin \MacropaySolutions\Kernel\Http\Response
  */
 class TestResponse implements ArrayAccess
 {
@@ -44,14 +44,14 @@ class TestResponse implements ArrayAccess
     /**
      * The response to delegate to.
      *
-     * @var \Illuminate\Http\Response
+     * @var \MacropaySolutions\Kernel\Http\Response
      */
     public $baseResponse;
 
     /**
      * The collection of logged exceptions for the request.
      *
-     * @var \Illuminate\Support\Collection
+     * @var \MacropaySolutions\Kernel\Support\Collection
      */
     public $exceptions;
 
@@ -65,7 +65,7 @@ class TestResponse implements ArrayAccess
     /**
      * Create a new test response instance.
      *
-     * @param \Illuminate\Http\Response $response
+     * @param \MacropaySolutions\Kernel\Http\Response $response
      * @return void
      */
     public function __construct($response)
@@ -77,7 +77,7 @@ class TestResponse implements ArrayAccess
     /**
      * Create a new TestResponse from another response.
      *
-     * @param \Illuminate\Http\Response $response
+     * @param \MacropaySolutions\Kernel\Http\Response $response
      * @return static
      */
     public static function fromBaseResponse($response)
@@ -1041,7 +1041,7 @@ class TestResponse implements ArrayAccess
      * Get the JSON decoded body of the response as a collection.
      *
      * @param string|null $key
-     * @return \Illuminate\Support\Collection
+     * @return \MacropaySolutions\Kernel\Support\Collection
      */
     public function collect($key = null)
     {
@@ -1084,10 +1084,10 @@ class TestResponse implements ArrayAccess
             PHPUnit::assertTrue($value(Arr::get($this->original->gatherData(), $key)));
         } elseif ($value instanceof Model) {
             PHPUnit::assertTrue($value->is(Arr::get($this->original->gatherData(), $key)));
-        } elseif ($value instanceof EloquentCollection) {
+        } elseif ($value instanceof ObviousCollection) {
             $actual = Arr::get($this->original->gatherData(), $key);
 
-            PHPUnit::assertInstanceOf(EloquentCollection::class, $actual);
+            PHPUnit::assertInstanceOf(ObviousCollection::class, $actual);
             PHPUnit::assertSameSize($value, $actual);
 
             $value->each(fn($item, $index) => PHPUnit::assertTrue($actual->get($index)->is($item)));
@@ -1488,7 +1488,7 @@ class TestResponse implements ArrayAccess
     /**
      * Get the current session store.
      *
-     * @return \Illuminate\Session\Store
+     * @return \MacropaySolutions\Kernel\Session\Store
      */
     protected function session()
     {
@@ -1628,7 +1628,7 @@ class TestResponse implements ArrayAccess
     /**
      * Set the previous exceptions on the response.
      *
-     * @param \Illuminate\Support\Collection $exceptions
+     * @param \MacropaySolutions\Kernel\Support\Collection $exceptions
      * @return $this
      */
     public function withExceptions(Collection $exceptions)

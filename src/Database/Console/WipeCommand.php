@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Database\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
+use MacropaySolutions\Kernel\Console\Command;
+use MacropaySolutions\Kernel\Console\ConfirmableTrait;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 

@@ -2,9 +2,9 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\Concerns\CreatesMatchingTest;
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Console\Concerns\CreatesMatchingTest;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
+use MacropaySolutions\Kernel\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 

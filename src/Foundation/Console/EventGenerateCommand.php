@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\Command;
+use MacropaySolutions\Kernel\Console\Command;
 use MacropaySolutions\Framework\Providers\EventServiceProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 

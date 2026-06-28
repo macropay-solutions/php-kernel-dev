@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
-use Illuminate\Support\Collection;
+use MacropaySolutions\Kernel\Support\Collection;
 
 class LoggedExceptionCollection extends Collection
 {

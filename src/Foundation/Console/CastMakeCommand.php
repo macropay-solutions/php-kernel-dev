@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\GeneratorCommand;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -21,7 +21,7 @@ class CastMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new custom Eloquent cast class';
+    protected $description = 'Create a new custom Obvious cast class';
 
     /**
      * The type of class being generated.

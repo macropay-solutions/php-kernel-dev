@@ -2,12 +2,12 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
-use Illuminate\Console\OutputStyle;
-use Illuminate\Console\PromptValidationException;
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Console\OutputStyle;
+use MacropaySolutions\Kernel\Console\PromptValidationException;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\Contracts\Container\Container;
+use MacropaySolutions\Kernel\Contracts\Support\Arrayable;
+use MacropaySolutions\Kernel\Support\Arr;
 use Mockery;
 use Mockery\Exception\NoMatchingExpectationException;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
@@ -28,7 +28,7 @@ class PendingCommand
     /**
      * The application instance.
      *
-     * @var \Illuminate\Contracts\Container\Container
+     * @var \MacropaySolutions\Kernel\Contracts\Container\Container
      */
     protected $app;
 
@@ -71,7 +71,7 @@ class PendingCommand
      * Create a new pending console command run.
      *
      * @param \PHPUnit\Framework\TestCase $test
-     * @param \Illuminate\Contracts\Container\Container $app
+     * @param \MacropaySolutions\Kernel\Contracts\Container\Container $app
      * @param string $command
      * @param array $parameters
      * @return void
@@ -185,7 +185,7 @@ class PendingCommand
      * Specify a table that should be printed when the command runs.
      *
      * @param array $headers
-     * @param \Illuminate\Contracts\Support\Arrayable|array $rows
+     * @param \MacropaySolutions\Kernel\Contracts\Support\Arrayable|array $rows
      * @param string $tableStyle
      * @param array $columnStyles
      * @return $this

@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
-use Illuminate\Console\OutputStyle;
-use Illuminate\Contracts\Console\Kernel;
+use MacropaySolutions\Kernel\Console\OutputStyle;
+use MacropaySolutions\Kernel\Contracts\Console\Kernel;
 use MacropaySolutions\KernelDev\Testing\PendingCommand;
 
 trait InteractsWithConsole

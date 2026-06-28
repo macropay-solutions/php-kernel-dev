@@ -3,7 +3,7 @@
 namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use MacropaySolutions\KernelDev\Foundation\Testing\Wormhole;
-use Illuminate\Support\Carbon;
+use MacropaySolutions\Kernel\Support\Carbon;
 
 trait InteractsWithTime
 {
@@ -43,7 +43,7 @@ trait InteractsWithTime
     /**
      * Travel to another time.
      *
-     * @param \DateTimeInterface|\Closure|\Illuminate\Support\Carbon|string|bool|null $date
+     * @param \DateTimeInterface|\Closure|\MacropaySolutions\Kernel\Support\Carbon|string|bool|null $date
      * @param callable|null $callback
      * @return mixed
      */

@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Http\Testing;
 
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Support\Arr;
 use Symfony\Component\Mime\MimeTypes;
 
 class MimeType

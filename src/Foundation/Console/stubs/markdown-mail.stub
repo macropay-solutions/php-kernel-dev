@@ -2,12 +2,12 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+use MacropaySolutions\Kernel\Bus\Queueable;
+use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
+use MacropaySolutions\Kernel\Mail\Mailable;
+use MacropaySolutions\Kernel\Mail\Mailables\Content;
+use MacropaySolutions\Kernel\Mail\Mailables\Envelope;
+use MacropaySolutions\Kernel\Queue\SerializesModels;
 
 class {{ class }} extends Mailable
 {
@@ -44,7 +44,7 @@ class {{ class }} extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, \MacropaySolutions\Kernel\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {

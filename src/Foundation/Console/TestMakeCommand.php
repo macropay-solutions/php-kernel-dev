@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
+use MacropaySolutions\Kernel\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

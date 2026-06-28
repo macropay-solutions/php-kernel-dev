@@ -2,8 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Concerns;
 
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Arr;
+use MacropaySolutions\Kernel\Database\QueryException;
+use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\KernelDev\Foundation\Testing;
 
 trait TestDatabases
@@ -104,7 +104,7 @@ trait TestDatabases
     protected function ensureSchemaIsUpToDate()
     {
         if (!static::$schemaIsUpToDate) {
-            \app(Illuminate\Contracts\Console\Kernel::class)->call('migrate');
+            \app(MacropaySolutions\Kernel\Contracts\Console\Kernel::class)->call('migrate');
 
             static::$schemaIsUpToDate = true;
         }

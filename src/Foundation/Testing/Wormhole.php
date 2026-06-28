@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Testing;
 
-use Illuminate\Support\Carbon;
+use MacropaySolutions\Kernel\Support\Carbon;
 
 class Wormhole
 {

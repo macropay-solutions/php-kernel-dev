@@ -4,8 +4,8 @@ namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use Exception;
 use MacropaySolutions\Framework\Application;
-use Illuminate\Redis\RedisManager;
-use Illuminate\Support\Env;
+use MacropaySolutions\Kernel\Redis\RedisManager;
+use MacropaySolutions\Kernel\Support\Env;
 
 trait InteractsWithRedis
 {
@@ -19,7 +19,7 @@ trait InteractsWithRedis
     /**
      * Redis manager instance.
      *
-     * @var array<string, \Illuminate\Redis\RedisManager>
+     * @var array<string, \MacropaySolutions\Kernel\Redis\RedisManager>
      */
     private $redis;
 

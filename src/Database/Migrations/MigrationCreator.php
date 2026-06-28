@@ -3,8 +3,8 @@
 namespace MacropaySolutions\KernelDev\Database\Migrations;
 
 use Closure;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
+use MacropaySolutions\Kernel\Filesystem\Filesystem;
+use MacropaySolutions\Kernel\Support\Str;
 use InvalidArgumentException;
 
 class MigrationCreator
@@ -12,7 +12,7 @@ class MigrationCreator
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var \MacropaySolutions\Kernel\Filesystem\Filesystem
      */
     protected $files;
 
@@ -33,7 +33,7 @@ class MigrationCreator
     /**
      * Create a new migration creator instance.
      *
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \MacropaySolutions\Kernel\Filesystem\Filesystem $files
      * @param string $customStubPath
      * @return void
      */
@@ -224,7 +224,7 @@ class MigrationCreator
     /**
      * Get the filesystem instance.
      *
-     * @return \Illuminate\Filesystem\Filesystem
+     * @return \MacropaySolutions\Kernel\Filesystem\Filesystem
      */
     public function getFilesystem()
     {

@@ -2,7 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Foundation\Console;
 
-use Illuminate\Console\GeneratorCommand;
+use MacropaySolutions\Kernel\Console\GeneratorCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -36,7 +36,7 @@ class RuleMakeCommand extends GeneratorCommand
      * @param string $name
      * @return string
      *
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws \MacropaySolutions\Kernel\Contracts\Filesystem\FileNotFoundException
      */
     protected function buildClass($name)
     {

@@ -3,11 +3,11 @@
 namespace MacropaySolutions\KernelDev\Testing;
 
 use Closure;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\View\View;
+use MacropaySolutions\Kernel\Database\Obvious\Collection;
+use MacropaySolutions\Kernel\Database\Obvious\Model;
+use MacropaySolutions\Kernel\Support\Arr;
+use MacropaySolutions\Kernel\Support\Traits\Macroable;
+use MacropaySolutions\Kernel\View\View;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 use MacropaySolutions\KernelDev\Testing\Constraints\SeeInOrder;
 
@@ -18,7 +18,7 @@ class TestView
     /**
      * The original view.
      *
-     * @var \Illuminate\View\View
+     * @var \MacropaySolutions\Kernel\View\View
      */
     protected $view;
 
@@ -32,7 +32,7 @@ class TestView
     /**
      * Create a new test view instance.
      *
-     * @param \Illuminate\View\View $view
+     * @param \MacropaySolutions\Kernel\View\View $view
      * @return void
      */
     public function __construct(View $view)
