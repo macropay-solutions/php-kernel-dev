@@ -139,9 +139,6 @@ php run make:listener
 php run make:mail
 ```
 ```bash
-php run make:middleware
-```
-```bash
 php run make:notification
 ```
 ```bash
