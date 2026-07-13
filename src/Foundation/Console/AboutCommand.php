@@ -211,9 +211,7 @@ class AboutCommand extends Command
                 return $logs;
             },
             'Mail' => config('mail.default'),
-            'Octane' => config('octane.server'),
             'Queue' => config('queue.default'),
-            'Scout' => config('scout.driver'),
             'Session' => config('session.driver'),
         ]));
 
