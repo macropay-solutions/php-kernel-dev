@@ -8,6 +8,7 @@ use MacropaySolutions\Kernel\Contracts\Console\Kernel;
 use MacropaySolutions\Kernel\View\Component;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use PHPUnit\Framework\Assert as PHPUnit;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -19,6 +20,11 @@ abstract class TestCase extends BaseTestCase
      * @var \MacropaySolutions\Framework\Application
      */
     protected $app;
+
+    /**
+     * The jobs that have been dispatched.
+     */
+    protected array $dispatchedJobs = [];
 
     /**
      * The base URL to use while testing the application.
@@ -254,21 +260,21 @@ abstract class TestCase extends BaseTestCase
      * @param array|string $jobs
      * @return $this
      */
-    protected function expectsJobs($jobs)
+    public function expectsJobs($jobClass)
     {
-        $jobs = is_array($jobs) ? $jobs : func_get_args();
+        $this->withoutJobs();
 
-        $mock = Mockery::mock('MacropaySolutions\Kernel\Bus\Dispatcher[dispatch]', [$this->app]);
+        $this->beforeApplicationDestroyed(function () use ($jobClass) {
+            $fired = collect($this->dispatchedJobs)->contains(function ($job) use ($jobClass) {
+                if ($job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
+                    return \is_a($job->storableCallable[0], $jobClass, true);
+                }
 
-        foreach ($jobs as $job) {
-            $mock->shouldReceive('dispatch')->atLeast()->once()
-                ->with(Mockery::type($job));
-        }
+                return $job instanceof $jobClass;
+            });
 
-        $this->app->instance(
-            \MacropaySolutions\Kernel\Contracts\Bus\Dispatcher::class,
-            $mock
-        );
+            PHPUnit::assertTrue($fired, "The expected job [{$jobClass}] was not dispatched.");
+        });
 
         return $this;
     }

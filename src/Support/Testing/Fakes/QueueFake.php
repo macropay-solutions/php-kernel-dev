@@ -5,6 +5,7 @@ namespace MacropaySolutions\KernelDev\Support\Testing\Fakes;
 use BadMethodCallException;
 use Closure;
 use MacropaySolutions\Kernel\Contracts\Queue\Queue;
+use MacropaySolutions\Kernel\Contracts\Queue\StorableCallable;
 use MacropaySolutions\Kernel\Queue\CallQueuedClosure;
 use MacropaySolutions\Kernel\Queue\QueueManager;
 use MacropaySolutions\Kernel\Support\Collection;
@@ -261,11 +262,13 @@ class QueueFake extends QueueManager implements Fake, Queue
     protected function assertPushedWithChainOfClasses($job, $expectedChain, $callback)
     {
         $matching = $this->pushed($job, $callback)->map->chained->map(function ($chain) {
-            return collect($chain)->map(function ($job) {
-                return get_class(unserialize($job));
+            return collect($chain)->map(function ($chainedJob) {
+                return \is_array($chainedJob) ?
+                    $chainedJob[0] :
+                    (\is_object($chainedJob) ? \get_class($chainedJob) : (string)$chainedJob);
             });
         })->filter(function ($chain) use ($expectedChain) {
-            return $chain->all() === $expectedChain;
+            return $chain->all() === \collect($expectedChain)->map(fn($e) => \is_array($e) ? $e[0] : (string)$e)->all();
         });
 
         PHPUnit::assertTrue(
@@ -372,13 +375,16 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function pushed($job, $callback = null)
     {
-        if (!$this->hasPushed($job)) {
-            return collect();
+        $callback = $callback ?: fn() => true;
+        $filteredJobs = [];
+
+        foreach ($this->jobs as $classKey => $pushedRecords) {
+            if (\is_a($classKey, $job, true)) {
+                $filteredJobs = \array_merge($filteredJobs, $pushedRecords);
+            }
         }
 
-        $callback = $callback ?: fn() => true;
-
-        return collect($this->jobs[$job])->filter(
+        return collect($filteredJobs)->filter(
             fn($data) => $callback($data['job'], $data['queue'], $data['data'])
         )->pluck('job');
     }
@@ -391,7 +397,13 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function hasPushed($job)
     {
-        return isset($this->jobs[$job]) && !empty($this->jobs[$job]);
+        foreach (\array_keys($this->jobs) as $classKey) {
+            if (\is_a($classKey, $job, true) && [] !== ($this->jobs[$classKey])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -428,6 +440,10 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function push($job, $data = '', $queue = null)
     {
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable();
+        }
+
         if (\is_array($job)) {
             $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($job);
         }
