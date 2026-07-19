@@ -6,7 +6,6 @@ use BadMethodCallException;
 use Closure;
 use MacropaySolutions\Kernel\Contracts\Queue\Queue;
 use MacropaySolutions\Kernel\Contracts\Queue\StorableCallable;
-use MacropaySolutions\Kernel\Queue\CallQueuedClosure;
 use MacropaySolutions\Kernel\Queue\QueueManager;
 use MacropaySolutions\Kernel\Support\Collection;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
@@ -278,28 +277,6 @@ class QueueFake extends QueueManager implements Fake, Queue
     }
 
     /**
-     * Assert if a closure was pushed based on a truth-test callback.
-     *
-     * @param callable|int|null $callback
-     * @return void
-     */
-    public function assertClosurePushed($callback = null)
-    {
-        $this->assertPushed(CallQueuedClosure::class, $callback);
-    }
-
-    /**
-     * Assert that a closure was not pushed based on a truth-test callback.
-     *
-     * @param callable|null $callback
-     * @return void
-     */
-    public function assertClosureNotPushed($callback = null)
-    {
-        $this->assertNotPushed(CallQueuedClosure::class, $callback);
-    }
-
-    /**
      * Determine if the given chain is entirely composed of objects.
      *
      * @param array $chain
@@ -440,6 +417,10 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function push($job, $data = '', $queue = null)
     {
+        if ($job instanceof Closure) {
+            throw new \RuntimeException('Closure serialization forbidden.');
+        }
+
         if ($job instanceof StorableCallable) {
             $job = $job->toStorableCallable();
         }
@@ -448,11 +429,16 @@ class QueueFake extends QueueManager implements Fake, Queue
             $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($job);
         }
 
-        if ($this->shouldFakeJob($job)) {
-            if ($job instanceof Closure) {
-                $job = CallQueuedClosure::create($job);
-            }
+        if (
+            \app()::FORBID_SERIALIZED_OBJECTS_IN_QUEUE
+            && \is_object($job)
+            && !$job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable
+        ) {
+            throw new \InvalidArgumentException('Strict Queue Mode: Traditional object jobs like [' . \get_class($job) .
+                '] are forbidden. You must use Storable Array Callables or implement StorableCallable.');
+        }
 
+        if ($this->shouldFakeJob($job)) {
             $this->jobs[is_object($job) ? get_class($job) : $job][] = [
                 'job' => $this->serializeAndRestore ? $this->serializeAndRestoreJob($job) : $job,
                 'queue' => $queue,
@@ -628,6 +614,22 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     protected function serializeAndRestoreJob($job)
     {
+        if (
+            \app()::FORBID_SERIALIZED_OBJECTS_IN_QUEUE
+            && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable
+        ) {
+            // Simulate the destructive JSON payload flattening on the worker
+            $flattened = \json_decode(\json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE), true);
+
+            $restored = new \MacropaySolutions\Kernel\Queue\CallQueuedCallable();
+
+            foreach ($flattened as $key => $value) {
+                $restored->{$key} = $value;
+            }
+
+            return $restored;
+        }
+
         return unserialize(serialize($job));
     }
 
