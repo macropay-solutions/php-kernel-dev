@@ -322,7 +322,10 @@ class QueueFake extends QueueManager implements Fake, Queue
                 $chainedJob = CallQueuedCallable::create($chainedJob);
             }
 
-            return \json_encode($chainedJob->storableCallable ?? $chainedJob, \JSON_UNESCAPED_UNICODE);
+            return \json_encode(
+                $chainedJob->storableCallable ?? $chainedJob,
+                \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR
+            );
         })->all();
 
         PHPUnit::assertTrue(
@@ -763,7 +766,11 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         if ($job instanceof CallQueuedCallable) {
             // Simulate the destructive JSON payload flattening on the worker
-            $flattened = \json_decode(\json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE), true);
+            $flattened = \json_decode(
+                \json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR),
+                true,
+                flags: \JSON_THROW_ON_ERROR
+            );
 
             $restored = (new \ReflectionClass($job::class))->newInstanceWithoutConstructor();
 
