@@ -315,11 +315,14 @@ class QueueFake extends QueueManager implements Fake, Queue
     protected function assertPushedWithChainOfObjects($job, $expectedChain, $callback)
     {
         $chain = collect($expectedChain)->map(function ($chainedJob) {
+            if ($chainedJob instanceof StorableCallable) {
+                $chainedJob = $chainedJob->toStorableCallable();
+            }
             if (\is_array($chainedJob)) {
-                return serialize(CallQueuedCallable::create($chainedJob));
+                $chainedJob = CallQueuedCallable::create($chainedJob);
             }
 
-            return serialize($chainedJob);
+            return \json_encode($chainedJob->storableCallable ?? $chainedJob, \JSON_UNESCAPED_UNICODE);
         })->all();
 
         PHPUnit::assertTrue(
@@ -340,6 +343,13 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         $matching = $this->pushed($job, $callback)->map->chained->map(function ($chain) {
             return collect($chain)->map(function ($chainedJob) {
+                if (\is_string($chainedJob)) {
+                    $decoded = \json_decode($chainedJob, true);
+
+                    if (\is_array($decoded) && isset($decoded[0])) {
+                        return $decoded[0];
+                    }
+                }
                 return \is_array($chainedJob) ?
                     $chainedJob[0] :
                     (\is_object($chainedJob) ? \get_class($chainedJob) : (string)$chainedJob);
