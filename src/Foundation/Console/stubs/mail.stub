@@ -7,11 +7,10 @@ use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
 use MacropaySolutions\Kernel\Mail\Mailable;
 use MacropaySolutions\Kernel\Mail\Mailables\Content;
 use MacropaySolutions\Kernel\Mail\Mailables\Envelope;
-use MacropaySolutions\Kernel\Queue\SerializesModels;
 
 class {{ class }} extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
 
     /**
      * Create a new message instance.

@@ -7,12 +7,10 @@ use MacropaySolutions\Kernel\Broadcasting\InteractsWithSockets;
 use MacropaySolutions\Kernel\Broadcasting\PresenceChannel;
 use MacropaySolutions\Kernel\Broadcasting\PrivateChannel;
 use MacropaySolutions\Kernel\Contracts\Broadcasting\ShouldBroadcast;
-use MacropaySolutions\Kernel\Queue\SerializesModels;
 
 class {{ class }}
 {
     use InteractsWithSockets;
-    use SerializesModels;
 
     /**
      * Create a new event instance.
