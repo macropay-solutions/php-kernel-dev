@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Closure;
 use MacropaySolutions\Kernel\Contracts\Queue\Queue;
 use MacropaySolutions\Kernel\Contracts\Queue\StorableCallable;
+use MacropaySolutions\Kernel\Queue\CallQueuedCallable;
 use MacropaySolutions\Kernel\Queue\QueueManager;
 use MacropaySolutions\Kernel\Support\Collection;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
@@ -95,19 +96,30 @@ class QueueFake extends QueueManager implements Fake, Queue
             return;
         }
 
-        if (\is_array($job)) {
-            $expectedCallable = $job;
-            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
 
-            $callback = function ($pushedJob) use ($expectedCallable): bool {
-                return $pushedJob->storableCallable === $expectedCallable;
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $job = CallQueuedCallable::class;
+
+            $customCallback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
             };
+
+            $callback = \is_callable($callback)
+                ? fn(...$args) => $customCallback(...$args) && $callback(...$args)
+                : $customCallback;
         }
 
         if ($job instanceof Closure) {
             [$job, $callback] = [$this->firstClosureParameterType($job), $job];
         }
-
 
         PHPUnit::assertTrue(
             $this->pushed($job, $callback)->count() > 0,
@@ -126,12 +138,20 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         $callback = null;
 
-        if (\is_array($job)) {
-            $expectedCallable = $job;
-            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
 
-            $callback = function ($pushedJob) use ($expectedCallable): bool {
-                return $pushedJob->storableCallable === $expectedCallable;
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $job = CallQueuedCallable::class;
+
+            $callback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
             };
         }
 
@@ -158,13 +178,25 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function assertPushedOn($queue, $job, $callback = null)
     {
-        if (\is_array($job)) {
-            $expectedCallable = $job;
-            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
 
-            $callback = function ($pushedJob) use ($expectedCallable): bool {
-                return $pushedJob->storableCallable === $expectedCallable;
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $job = CallQueuedCallable::class;
+
+            $customCallback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
             };
+
+            $callback = \is_callable($callback)
+                ? fn(...$args) => $customCallback(...$args) && $callback(...$args)
+                : $customCallback;
         }
 
         if ($job instanceof Closure) {
@@ -190,6 +222,29 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function assertPushedWithChain($job, $expectedChain = [], $callback = null)
     {
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
+
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $jobClass = CallQueuedCallable::class;
+
+            $customCallback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
+            };
+
+            $callback = \is_callable($callback)
+                ? fn(...$args) => $customCallback(...$args) && $callback(...$args)
+                : $customCallback;
+
+            $job = $jobClass;
+        }
+
         PHPUnit::assertTrue(
             $this->pushed($job, $callback)->isNotEmpty(),
             "The expected [{$job}] job was not pushed."
@@ -218,6 +273,29 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function assertPushedWithoutChain($job, $callback = null)
     {
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
+
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $jobClass = CallQueuedCallable::class;
+
+            $customCallback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
+            };
+
+            $callback = \is_callable($callback)
+                ? fn(...$args) => $customCallback(...$args) && $callback(...$args)
+                : $customCallback;
+
+            $job = $jobClass;
+        }
+
         PHPUnit::assertTrue(
             $this->pushed($job, $callback)->isNotEmpty(),
             "The expected [{$job}] job was not pushed."
@@ -238,7 +316,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         $chain = collect($expectedChain)->map(function ($chainedJob) {
             if (\is_array($chainedJob)) {
-                return serialize(\MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($chainedJob));
+                return serialize(CallQueuedCallable::create($chainedJob));
             }
 
             return serialize($chainedJob);
@@ -296,13 +374,25 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function assertNotPushed($job, $callback = null)
     {
-        if (\is_array($job)) {
-            $expectedCallable = $job;
-            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class;
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
+        }
 
-            $callback = function ($pushedJob) use ($expectedCallable): bool {
-                return $pushedJob->storableCallable === $expectedCallable;
+        if (\is_array($job)) {
+            $expectedCallable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+            $job = CallQueuedCallable::class;
+
+            $customCallback = function (...$args) use ($expectedCallable): bool {
+                $pushedJob = $args[0] ?? null;
+
+                return $pushedJob instanceof CallQueuedCallable
+                    && ($pushedJob->storableCallable === $expectedCallable
+                        || \json_encode($pushedJob->storableCallable) === \json_encode($expectedCallable));
             };
+
+            $callback = \is_callable($callback)
+                ? fn(...$args) => $customCallback(...$args) && $callback(...$args)
+                : $customCallback;
         }
 
         if ($job instanceof Closure) {
@@ -354,10 +444,21 @@ class QueueFake extends QueueManager implements Fake, Queue
     {
         $callback = $callback ?: fn() => true;
         $filteredJobs = [];
+        $targetClass = \is_string($job) ? $job : (\is_object($job) ? \get_class($job) : '');
 
         foreach ($this->jobs as $classKey => $pushedRecords) {
-            if (\is_a($classKey, $job, true)) {
-                $filteredJobs = \array_merge($filteredJobs, $pushedRecords);
+            foreach ($pushedRecords as $record) {
+                $recordJob = $record['job'];
+                $targetMethodClass = \is_string($recordJob->storableCallable[0] ?? null) ? $recordJob->storableCallable[0] : '';
+                $matchesJob = ($targetClass !== '' && \is_a($classKey, $targetClass, true))
+                    || ($recordJob instanceof CallQueuedCallable
+                        && $targetClass !== ''
+                        && $targetMethodClass !== ''
+                        && \is_a($targetMethodClass, $targetClass, true));
+
+                if ($matchesJob) {
+                    $filteredJobs[] = $record;
+                }
             }
         }
 
@@ -374,13 +475,26 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     public function hasPushed($job)
     {
-        foreach (\array_keys($this->jobs) as $classKey) {
-            if (\is_a($classKey, $job, true) && [] !== ($this->jobs[$classKey])) {
-                return true;
-            }
+        if ($job instanceof StorableCallable) {
+            $job = $job->toStorableCallable()->storableCallable;
         }
 
-        return false;
+        if (\is_array($job)) {
+            $storable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($job);
+
+            foreach ($this->pushed(CallQueuedCallable::class) as $pushedJob) {
+                if (
+                    $pushedJob->storableCallable === $storable
+                    || \json_encode($pushedJob->storableCallable) === \json_encode($storable)
+                ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return $this->pushed($job)->isNotEmpty();
     }
 
     /**
@@ -426,12 +540,12 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         if (\is_array($job)) {
-            $job = \MacropaySolutions\Kernel\Queue\CallQueuedCallable::create($job);
+            $job = CallQueuedCallable::create($job);
         }
 
         if (
             \is_object($job)
-            && !$job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable
+            && !$job instanceof CallQueuedCallable
         ) {
             throw new \InvalidArgumentException('Strict Queue Mode: Traditional object jobs like [' . \get_class($job) .
                 '] are forbidden. You must use Storable Array Callables or implement StorableCallable.');
@@ -473,11 +587,23 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         return $this->jobsToFake->contains(function ($jobToFake) use ($job): bool {
-            if (\is_array($jobToFake) && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
-                return $job->storableCallable === $jobToFake;
+            if ($jobToFake instanceof StorableCallable) {
+                $jobToFake = $jobToFake->toStorableCallable()->storableCallable;
             }
 
-            return \is_a($job, (string)$jobToFake, true);
+            if (\is_array($jobToFake) && $job instanceof CallQueuedCallable) {
+                $storable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($jobToFake);
+
+                return $job->storableCallable === $storable
+                    || \json_encode($job->storableCallable) === \json_encode($storable);
+            }
+
+            if ($job instanceof CallQueuedCallable) {
+                $targetClass = \is_string($job->storableCallable[0] ?? null) ? $job->storableCallable[0] : '';
+                return \is_string($jobToFake) && $targetClass !== '' && \is_a($targetClass, $jobToFake, true);
+            }
+
+            return  \is_string($jobToFake) && \is_a($job, $jobToFake, true);
         });
     }
 
@@ -494,11 +620,23 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         return $this->jobsToBeQueued->contains(function ($jobToQueue) use ($job): bool {
-            if (\is_array($jobToQueue) && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
-                return $job->storableCallable === $jobToQueue;
+            if ($jobToQueue instanceof StorableCallable) {
+                $jobToQueue = $jobToQueue->toStorableCallable()->storableCallable;
             }
 
-            return \is_a($job, (string)$jobToQueue);
+            if (\is_array($jobToQueue) && $job instanceof CallQueuedCallable) {
+                $storable = \MacropaySolutions\Kernel\Queue\Queue::storableCallable($jobToQueue);
+
+                return $job->storableCallable === $storable
+                    || \json_encode($job->storableCallable) === \json_encode($storable);
+            }
+
+            if ($job instanceof CallQueuedCallable) {
+                $targetClass = \is_string($job->storableCallable[0] ?? null) ? $job->storableCallable[0] : '';
+                return \is_string($jobToQueue) && $targetClass !== '' && \is_a($targetClass, $jobToQueue, true);
+            }
+
+            return \is_string($jobToQueue) && \is_a($job, $jobToQueue, true);
         });
     }
 
@@ -613,11 +751,11 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     protected function serializeAndRestoreJob($job)
     {
-        if ($job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
+        if ($job instanceof CallQueuedCallable) {
             // Simulate the destructive JSON payload flattening on the worker
             $flattened = \json_decode(\json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE), true);
 
-            $restored = new \MacropaySolutions\Kernel\Queue\CallQueuedCallable();
+            $restored = (new \ReflectionClass($job::class))->newInstanceWithoutConstructor();
 
             foreach ($flattened as $key => $value) {
                 $restored->{$key} = $value;
@@ -626,8 +764,8 @@ class QueueFake extends QueueManager implements Fake, Queue
             return $restored;
         }
 
-        throw new \RuntimeException('Job nt instance of ' .
-            \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class);
+        throw new \RuntimeException('Job not an instance of ' .
+            CallQueuedCallable::class);
     }
 
     /**
