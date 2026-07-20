@@ -430,8 +430,7 @@ class QueueFake extends QueueManager implements Fake, Queue
         }
 
         if (
-            \app()::FORBID_SERIALIZED_OBJECTS_IN_QUEUE
-            && \is_object($job)
+            \is_object($job)
             && !$job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable
         ) {
             throw new \InvalidArgumentException('Strict Queue Mode: Traditional object jobs like [' . \get_class($job) .
@@ -614,10 +613,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     protected function serializeAndRestoreJob($job)
     {
-        if (
-            \app()::FORBID_SERIALIZED_OBJECTS_IN_QUEUE
-            && $job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable
-        ) {
+        if ($job instanceof \MacropaySolutions\Kernel\Queue\CallQueuedCallable) {
             // Simulate the destructive JSON payload flattening on the worker
             $flattened = \json_decode(\json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE), true);
 
@@ -630,7 +626,8 @@ class QueueFake extends QueueManager implements Fake, Queue
             return $restored;
         }
 
-        return unserialize(serialize($job));
+        throw new \RuntimeException('Job nt instance of ' .
+            \MacropaySolutions\Kernel\Queue\CallQueuedCallable::class);
     }
 
     /**
