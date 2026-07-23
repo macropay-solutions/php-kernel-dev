@@ -304,13 +304,25 @@ class EventFake implements Dispatcher, Fake
      */
     public function dispatch($event, $payload = [], $halt = false)
     {
+        if (\is_string($event) && \class_exists($event)) {
+            $payload = Arr::wrap($payload);
+
+            if (!isset($payload[0]) || !$payload[0] instanceof $event) {
+                $params = (isset($payload[0]) && \is_array($payload[0])) ? $payload[0] : $payload;
+                $event = \app($event, $params);
+            }
+        }
+
         $name = is_object($event) ? get_class($event) : (string)$event;
+        $arguments = is_object($event) ? [$event] : [$event, $payload, $halt];
 
         if ($this->shouldFakeEvent($name, $payload)) {
-            $this->fakeEvent($event, $name, func_get_args());
-        } else {
-            return $this->dispatcher->dispatch($event, $payload, $halt);
+            $this->fakeEvent($event, $name, $arguments);
+
+            return null;
         }
+
+        return $this->dispatcher->dispatch($event, $payload, $halt);
     }
 
     /**
