@@ -10,6 +10,7 @@ use MacropaySolutions\Kernel\Contracts\Queue\ShouldQueue;
 use MacropaySolutions\Kernel\Contracts\Translation\HasLocalePreference;
 use MacropaySolutions\Kernel\Notifications\AnonymousNotifiable;
 use MacropaySolutions\Kernel\Support\Collection;
+use MacropaySolutions\Kernel\Queue\SerializesModelsHelper;
 use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\Kernel\Support\Traits\Macroable;
 use MacropaySolutions\Kernel\Support\Traits\ReflectsClosures;
@@ -348,7 +349,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      */
     public function channel($name = null)
     {
-        //
+        return $this;
     }
 
     /**
@@ -378,14 +379,29 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
     }
 
     /**
-     * Serialize and unserialize the notification to simulate the queueing process.
+     * Serialize and restore the notification to strictly simulate the StorableCallable queueing process.
      *
      * @param mixed $notification
      * @return mixed
      */
     protected function serializeAndRestoreNotification($notification)
     {
-        return unserialize(serialize($notification));
+        $helper = new SerializesModelsHelper();
+        $serialized = [];
+
+        foreach (\get_object_vars($notification) as $key => $value) {
+            $serialized[$key] = $helper->serializePropertyValue($value);
+        }
+
+        // Simulate the exact JSON serialization transport boundary to catch property loss traps
+        $flattened = \json_decode(\json_encode($serialized), true);
+        $restored = \app(\get_class($notification));
+
+        foreach ($flattened as $key => $value) {
+            $restored->$key = $helper->restorePropertyValue($value);
+        }
+
+        return $restored;
     }
 
     /**
