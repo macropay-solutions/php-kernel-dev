@@ -757,7 +757,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     }
 
     /**
-     * Serialize and unserialize the job to simulate the queueing process.
+     * Serialize and restore the job to simulate the queueing process and model rehydration.
      *
      * @param mixed $job
      * @return mixed
@@ -765,7 +765,9 @@ class QueueFake extends QueueManager implements Fake, Queue
     protected function serializeAndRestoreJob($job)
     {
         if ($job instanceof CallQueuedCallable) {
-            // Simulate the destructive JSON payload flattening on the worker
+            $helper = new \MacropaySolutions\Kernel\Queue\SerializesModelsHelper();
+
+            // 1. Simulate the destructive JSON wire-transport layer
             $flattened = \json_decode(
                 \json_encode(\get_object_vars($job), \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR),
                 true,
@@ -778,11 +780,17 @@ class QueueFake extends QueueManager implements Fake, Queue
                 $restored->{$key} = $value;
             }
 
+            // 2. Rehydrate serialized models inside the storableCallable parameter payload
+            if (isset($restored->storableCallable[2]) && \is_array($restored->storableCallable[2])) {
+                foreach ($restored->storableCallable[2] as $paramKey => $paramValue) {
+                    $restored->storableCallable[2][$paramKey] = $helper->restorePropertyValue($paramValue);
+                }
+            }
+
             return $restored;
         }
 
-        throw new \RuntimeException('Job not an instance of ' .
-            CallQueuedCallable::class);
+        throw new \RuntimeException('Job not an instance of ' . CallQueuedCallable::class);
     }
 
     /**
