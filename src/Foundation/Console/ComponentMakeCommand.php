@@ -67,7 +67,7 @@ class ComponentMakeCommand extends GeneratorCommand
     protected function writeView($onSuccess = null)
     {
         $path = $this->viewPath(
-            str_replace('.', '/', 'components.' . $this->getView()) . '.blade.php'
+            str_replace('.', '/', 'components.' . $this->getView()) . '.template.php'
         );
 
         if (!$this->files->isDirectory(dirname($path))) {
@@ -102,7 +102,7 @@ class ComponentMakeCommand extends GeneratorCommand
         if ($this->option('inline')) {
             return str_replace(
                 ['DummyView', '{{ view }}'],
-                "<<<'blade'\n<div>\n    \n</div>\nblade",
+                "<<<'template'\n<div>\n    \n</div>\ntemplate",
                 parent::buildClass($name)
             );
         }

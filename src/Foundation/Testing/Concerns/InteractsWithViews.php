@@ -25,13 +25,13 @@ trait InteractsWithViews
     }
 
     /**
-     * Render the contents of the given Blade template string.
+     * Render the contents of the given Template template string.
      *
      * @param string $template
      * @param \MacropaySolutions\Kernel\Contracts\Support\Arrayable|array $data
      * @return \MacropaySolutions\KernelDev\Testing\TestView
      */
-    protected function blade(string $template, $data = [])
+    protected function template(string $template, $data = [])
     {
         $tempDirectory = sys_get_temp_dir();
 
@@ -39,9 +39,9 @@ trait InteractsWithViews
             ViewFacade::addLocation(sys_get_temp_dir());
         }
 
-        $tempFileInfo = pathinfo(tempnam($tempDirectory, 'framework-blade'));
+        $tempFileInfo = pathinfo(tempnam($tempDirectory, 'framework-template'));
 
-        $tempFile = $tempFileInfo['dirname'] . '/' . $tempFileInfo['filename'] . '.blade.php';
+        $tempFile = $tempFileInfo['dirname'] . '/' . $tempFileInfo['filename'] . '.template.php';
 
         file_put_contents($tempFile, $template);
 

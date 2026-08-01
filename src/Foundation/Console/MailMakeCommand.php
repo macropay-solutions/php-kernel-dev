@@ -58,7 +58,7 @@ class MailMakeCommand extends GeneratorCommand
     protected function writeMarkdownTemplate()
     {
         $path = $this->viewPath(
-            str_replace('.', '/', $this->getView()) . '.blade.php'
+            str_replace('.', '/', $this->getView()) . '.template.php'
         );
 
         if (!$this->files->isDirectory(dirname($path))) {

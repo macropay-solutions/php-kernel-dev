@@ -229,7 +229,7 @@ class ViewMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['extension', null, InputOption::VALUE_OPTIONAL, 'The extension of the generated view', 'blade.php'],
+            ['extension', null, InputOption::VALUE_OPTIONAL, 'The extension of the generated view', 'template.php'],
             ['force', 'f', InputOption::VALUE_NONE, 'Create the view even if the view already exists'],
         ];
     }

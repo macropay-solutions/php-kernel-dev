@@ -59,8 +59,8 @@ trait TestViews
     {
         $this->app['config']->set('view.compiled', $path);
 
-        if ($this->app->resolved('blade.compiler')) {
-            $compiler = $this->app['blade.compiler'];
+        if ($this->app->resolved('template.compiler')) {
+            $compiler = $this->app['template.compiler'];
 
             (function () use ($path) {
                 $this->cachePath = $path;
