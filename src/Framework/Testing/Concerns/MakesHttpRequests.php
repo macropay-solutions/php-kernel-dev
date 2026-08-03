@@ -3,12 +3,12 @@
 namespace MacropaySolutions\KernelDev\Framework\Testing\Concerns;
 
 use MacropaySolutions\Framework\Http\Request as FrameworkRequest;
+use MacropaySolutions\Kernel\Http\Base\Request as BaseRequest;
 use MacropaySolutions\Kernel\Http\Request;
 use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\Kernel\Support\Str;
 use MacropaySolutions\KernelDev\Testing\Assert as PHPUnit;
 use MacropaySolutions\KernelDev\Testing\TestResponse;
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 trait MakesHttpRequests
 {
@@ -360,7 +360,7 @@ trait MakesHttpRequests
     {
         $this->currentUri = $this->prepareUrlForRequest($uri);
 
-        $symfonyRequest = SymfonyRequest::create(
+        $symfonyRequest = BaseRequest::create(
             $this->currentUri,
             $method,
             $parameters,
