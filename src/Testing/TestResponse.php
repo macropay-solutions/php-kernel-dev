@@ -10,9 +10,6 @@ use MacropaySolutions\Kernel\Contracts\View\View;
 use MacropaySolutions\Kernel\Cookie\CookieValuePrefix;
 use MacropaySolutions\Kernel\Database\Obvious\Collection as ObviousCollection;
 use MacropaySolutions\Kernel\Database\Obvious\Model;
-use MacropaySolutions\Kernel\Http\Base\Cookie;
-use MacropaySolutions\Kernel\Http\Base\StreamedJsonResponse;
-use MacropaySolutions\Kernel\Http\Base\StreamedResponse;
 use MacropaySolutions\Kernel\Http\RedirectResponse;
 use MacropaySolutions\Kernel\Http\Request;
 use MacropaySolutions\Kernel\Support\Arr;
@@ -28,6 +25,9 @@ use MacropaySolutions\KernelDev\Testing\Constraints\SeeInOrder;
 use MacropaySolutions\KernelDev\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionProperty;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\StreamedJsonResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @mixin \MacropaySolutions\Kernel\Http\Response

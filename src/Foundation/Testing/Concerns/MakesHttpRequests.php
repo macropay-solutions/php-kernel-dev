@@ -4,11 +4,11 @@ namespace MacropaySolutions\KernelDev\Foundation\Testing\Concerns;
 
 use MacropaySolutions\Kernel\Contracts\Http\Kernel as HttpKernel;
 use MacropaySolutions\Kernel\Cookie\CookieValuePrefix;
-use MacropaySolutions\Kernel\Http\Base\Request as BaseRequest;
-use MacropaySolutions\Kernel\Http\Base\UploadedFile as BaseUploadedFile;
 use MacropaySolutions\Kernel\Http\Request;
 use MacropaySolutions\KernelDev\Testing\LoggedExceptionCollection;
 use MacropaySolutions\KernelDev\Testing\TestResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 trait MakesHttpRequests
 {
@@ -579,7 +579,7 @@ trait MakesHttpRequests
 
         $files = array_merge($files, $this->extractFilesFromDataArray($parameters));
 
-        $symfonyRequest = BaseRequest::create(
+        $symfonyRequest = SymfonyRequest::create(
             $this->prepareUrlForRequest($uri),
             $method,
             $parameters,
@@ -658,7 +658,7 @@ trait MakesHttpRequests
         $files = [];
 
         foreach ($data as $key => $value) {
-            if ($value instanceof BaseUploadedFile) {
+            if ($value instanceof SymfonyUploadedFile) {
                 $files[$key] = $value;
 
                 unset($data[$key]);
@@ -720,7 +720,7 @@ trait MakesHttpRequests
     /**
      * Create the request instance used for testing from the given Symfony request.
      *
-     * @param \MacropaySolutions\Kernel\Http\Base\Request $symfonyRequest
+     * @param \Symfony\Component\HttpFoundation\Request $symfonyRequest
      * @return \MacropaySolutions\Kernel\Http\Request
      */
     protected function createTestRequest($symfonyRequest)
