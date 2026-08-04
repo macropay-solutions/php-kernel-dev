@@ -99,8 +99,12 @@ class AssetPublisherPlugin implements PluginInterface, EventSubscriberInterface
             \mkdir($dir, 0755, true);
         }
 
-        if (!\file_exists($destination)) {
-            \copy($source, $destination);
+        if (\file_exists($destination)) {
+            $this->io->write('  ⊘ Skipped (exists): ' . $destination);
+
+            return;
         }
+
+        \copy($source, $destination);
     }
 }
