@@ -1,13 +1,17 @@
 {
     "name": "macropay-solutions/php-kernel-dev",
-    "type": "library",
+    "type": "composer-plugin",
     "description": "Development library for php-kernel",
     "license": "MIT",
     "keywords": [
         "generator"
     ],
     "require": {
-        "php": "^8.2.0"
+        "php": "^8.2.0",
+        "composer-plugin-api": "^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -23,5 +27,8 @@
         "macropay-solutions/php-framework": "dev-production",
         "macropay-solutions/php-crufd-wizard": "dev-production",
         "macropay-solutions/php-kernel": "dev-production"
+    },
+    "extra": {
+        "class": "MacropaySolutions\\KernelDev\\Composer\\AssetPublisherPlugin"
     }
 }
