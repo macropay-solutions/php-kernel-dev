@@ -112,9 +112,6 @@ php run channel:list
 php run db:wipe
 ```
 ```bash
-php run make:cast
-```
-```bash
 php run make:channel
 ```
 ```bash
