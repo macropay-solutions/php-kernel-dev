@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use MacropaySolutions\Kernel\Http\FormRequest;
+use App\FormRequest;
 
 class {{ class }} extends FormRequest
 {
