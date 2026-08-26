@@ -56,11 +56,6 @@ class ShowModelCommand extends DatabaseInspectionCommand
         'belongsToMany',
         'hasOne',
         'belongsTo',
-        'morphOne',
-        'morphTo',
-        'morphMany',
-        'morphToMany',
-        'morphedByMany',
     ];
 
     /**
