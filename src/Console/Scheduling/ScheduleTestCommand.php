@@ -44,7 +44,7 @@ class ScheduleTestCommand extends Command
         }
 
         if (empty($commandNames)) {
-            $this->components->info('No scheduled commands have been defined.');
+            $this->info('No scheduled commands have been defined.');
 
             return;
         }
@@ -57,7 +57,7 @@ class ScheduleTestCommand extends Command
             });
 
             if (count($matches) !== 1) {
-                $this->components->info('No matching scheduled command found.');
+                $this->info('No matching scheduled command found.');
 
                 return;
             }

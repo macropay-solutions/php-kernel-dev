@@ -50,7 +50,7 @@ class KeyGenerateCommand extends Command
 
         $this->app['config']['app.key'] = $key;
 
-        $this->components->info('Application key set successfully.');
+        $this->info('Application key set successfully.');
     }
 
     /**

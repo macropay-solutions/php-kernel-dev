@@ -53,7 +53,7 @@ class ScheduleListCommand extends Command
         $events = collect($schedule->events());
 
         if ($events->isEmpty()) {
-            $this->components->info('No scheduled tasks have been defined.');
+            $this->info('No scheduled tasks have been defined.');
 
             return;
         }

@@ -46,13 +46,13 @@ class ChannelListCommand extends Command
             !$this->app->providerIsLoaded('App\Providers\BroadcastServiceProvider') &&
             file_exists($this->app->path('Providers/BroadcastServiceProvider.php'))
         ) {
-            $this->components->warn(
+            $this->warn(
                 'The [App\Providers\BroadcastServiceProvider] has not been loaded. Your private channels may not be loaded.'
             );
         }
 
         if (!$channels->count()) {
-            $this->components->error("Your application doesn't have any private broadcasting channels.");
+            $this->error("Your application doesn't have any private broadcasting channels.");
 
             return;
         }

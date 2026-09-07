@@ -43,7 +43,7 @@ class EventListCommand extends Command
         $events = $this->getEvents()->sortKeys();
 
         if ($events->isEmpty()) {
-            $this->components->info("Your application doesn't have any events matching the given criteria.");
+            $this->info("Your application doesn't have any events matching the given criteria.");
 
             return;
         }

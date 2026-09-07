@@ -74,13 +74,13 @@ class EnvironmentEncryptCommand extends Command
         }
 
         if (!$this->files->exists($environmentFile)) {
-            $this->components->error('Environment file not found.');
+            $this->error('Environment file not found.');
 
             return Command::FAILURE;
         }
 
         if ($this->files->exists($encryptedFile) && !$this->option('force')) {
-            $this->components->error('Encrypted environment file already exists.');
+            $this->error('Encrypted environment file already exists.');
 
             return Command::FAILURE;
         }
@@ -93,12 +93,12 @@ class EnvironmentEncryptCommand extends Command
                 $encrypter->encrypt($this->files->get($environmentFile))
             );
         } catch (Exception $e) {
-            $this->components->error($e->getMessage());
+            $this->error($e->getMessage());
 
             return Command::FAILURE;
         }
 
-        $this->components->info('Environment successfully encrypted.');
+        $this->info('Environment successfully encrypted.');
 
         $this->components->twoColumnDetail('Key', $keyPassed ? $key : 'base64:' . base64_encode($key));
         $this->components->twoColumnDetail('Cipher', $cipher);

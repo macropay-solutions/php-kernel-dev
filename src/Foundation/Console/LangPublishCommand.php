@@ -55,6 +55,6 @@ class LangPublishCommand extends Command
             }
         }
 
-        $this->components->info('Language files published successfully.');
+        $this->info('Language files published successfully.');
     }
 }

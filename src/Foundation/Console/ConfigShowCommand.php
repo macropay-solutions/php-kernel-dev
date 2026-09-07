@@ -33,7 +33,7 @@ class ConfigShowCommand extends Command
         $config = $this->argument('config');
 
         if (!config()->has($config)) {
-            $this->components->error("Configuration file `{$config}` does not exist.");
+            $this->error("Configuration file `{$config}` does not exist.");
 
             return Command::FAILURE;
         }

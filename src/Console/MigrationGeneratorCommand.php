@@ -65,7 +65,7 @@ abstract class MigrationGeneratorCommand extends Command
         $table = $this->migrationTableName();
 
         if ($this->migrationExists($table)) {
-            $this->components->error('Migration already exists.');
+            $this->error('Migration already exists.');
 
             return 1;
         }
@@ -75,7 +75,7 @@ abstract class MigrationGeneratorCommand extends Command
             $table
         );
 
-        $this->components->info('Migration created successfully.');
+        $this->info('Migration created successfully.');
 
         return 0;
     }
