@@ -122,12 +122,12 @@ class AboutCommand extends Command
         $data->each(function ($data, $section) {
             $this->newLine();
 
-            $this->components->twoColumnDetail('  <fg=green;options=bold>' . $section . '</>');
+            $this->twoColumnDetail('  <fg=green;options=bold>' . $section . '</>');
 
             $data->pipe(fn($data) => $section !== 'Environment' ? $data->sort() : $data)->each(function ($detail) {
                 [$label, $value] = $detail;
 
-                $this->components->twoColumnDetail($label, value($value, false));
+                $this->twoColumnDetail($label, value($value, false));
             });
         });
     }

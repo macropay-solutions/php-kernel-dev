@@ -140,23 +140,23 @@ class ShowCommand extends DatabaseInspectionCommand
 
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>' . $platform['name'] . '</>');
-        $this->components->twoColumnDetail('Database', Arr::get($platform['config'], 'database'));
-        $this->components->twoColumnDetail('Host', Arr::get($platform['config'], 'host'));
-        $this->components->twoColumnDetail('Port', Arr::get($platform['config'], 'port'));
-        $this->components->twoColumnDetail('Username', Arr::get($platform['config'], 'username'));
-        $this->components->twoColumnDetail('URL', Arr::get($platform['config'], 'url'));
-        $this->components->twoColumnDetail('Open Connections', $platform['open_connections']);
-        $this->components->twoColumnDetail('Tables', $tables->count());
+        $this->twoColumnDetail('<fg=green;options=bold>' . $platform['name'] . '</>');
+        $this->twoColumnDetail('Database', Arr::get($platform['config'], 'database'));
+        $this->twoColumnDetail('Host', Arr::get($platform['config'], 'host'));
+        $this->twoColumnDetail('Port', Arr::get($platform['config'], 'port'));
+        $this->twoColumnDetail('Username', Arr::get($platform['config'], 'username'));
+        $this->twoColumnDetail('URL', Arr::get($platform['config'], 'url'));
+        $this->twoColumnDetail('Open Connections', $platform['open_connections']);
+        $this->twoColumnDetail('Tables', $tables->count());
 
         if ($tableSizeSum = $tables->sum('size')) {
-            $this->components->twoColumnDetail('Total Size', number_format($tableSizeSum / 1024 / 1024, 2) . 'MiB');
+            $this->twoColumnDetail('Total Size', number_format($tableSizeSum / 1024 / 1024, 2) . 'MiB');
         }
 
         $this->newLine();
 
         if ($tables->isNotEmpty()) {
-            $this->components->twoColumnDetail(
+            $this->twoColumnDetail(
                 '<fg=green;options=bold>Table</>',
                 'Size (MiB)' . ($this->option(
                     'counts'
@@ -168,7 +168,7 @@ class ShowCommand extends DatabaseInspectionCommand
                     $tableSize = number_format($tableSize / 1024 / 1024, 2);
                 }
 
-                $this->components->twoColumnDetail(
+                $this->twoColumnDetail(
                     $table['table'] . ($this->output->isVerbose() ? ' <fg=gray>' . $table['engine'] . '</>' : null),
                     ($tableSize ? $tableSize : '—') . ($this->option(
                         'counts'
@@ -179,7 +179,7 @@ class ShowCommand extends DatabaseInspectionCommand
 
                 if ($this->output->isVerbose()) {
                     if ($table['comment']) {
-                        $this->components->bulletList([
+                        $this->bulletList([
                             $table['comment'],
                         ]);
                     }
@@ -190,9 +190,9 @@ class ShowCommand extends DatabaseInspectionCommand
         }
 
         if ($views && $views->isNotEmpty()) {
-            $this->components->twoColumnDetail('<fg=green;options=bold>View</>', '<fg=green;options=bold>Rows</>');
+            $this->twoColumnDetail('<fg=green;options=bold>View</>', '<fg=green;options=bold>Rows</>');
 
-            $views->each(fn($view) => $this->components->twoColumnDetail($view['view'], number_format($view['rows'])));
+            $views->each(fn($view) => $this->twoColumnDetail($view['view'], number_format($view['rows'])));
 
             $this->newLine();
         }

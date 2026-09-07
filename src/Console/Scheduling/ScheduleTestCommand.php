@@ -81,10 +81,10 @@ class ScheduleTestCommand extends Command
             $event->runInBackground ? ' in background' : '',
         );
 
-        $this->components->task($description, fn() => $event->run($this->app));
+        $this->task($description, fn() => $event->run($this->app));
 
         if (!$event instanceof CallbackEvent) {
-            $this->components->bulletList([$event->getSummaryForDisplay()]);
+            $this->bulletList([$event->getSummaryForDisplay()]);
         }
 
         $this->newLine();

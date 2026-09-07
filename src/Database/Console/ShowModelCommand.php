@@ -323,17 +323,17 @@ class ShowModelCommand extends DatabaseInspectionCommand
     {
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>' . $class . '</>');
-        $this->components->twoColumnDetail('Database', $database);
-        $this->components->twoColumnDetail('Table', $table);
+        $this->twoColumnDetail('<fg=green;options=bold>' . $class . '</>');
+        $this->twoColumnDetail('Database', $database);
+        $this->twoColumnDetail('Table', $table);
 
         if ($policy) {
-            $this->components->twoColumnDetail('Policy', $policy);
+            $this->twoColumnDetail('Policy', $policy);
         }
 
         $this->newLine();
 
-        $this->components->twoColumnDetail(
+        $this->twoColumnDetail(
             '<fg=green;options=bold>Attributes</>',
             'type <fg=gray>/</> <fg=yellow;options=bold>cast</>',
         );
@@ -355,10 +355,10 @@ class ShowModelCommand extends DatabaseInspectionCommand
                 $attribute['cast'] ? '<fg=yellow;options=bold>' . $attribute['cast'] . '</>' : null,
             ])->filter()->implode(' <fg=gray>/</> ');
 
-            $this->components->twoColumnDetail($first, $second);
+            $this->twoColumnDetail($first, $second);
 
             if ($attribute['default'] !== null) {
-                $this->components->bulletList(
+                $this->bulletList(
                     [sprintf('default: %s', $attribute['default'])],
                     OutputInterface::VERBOSITY_VERBOSE
                 );
@@ -367,10 +367,10 @@ class ShowModelCommand extends DatabaseInspectionCommand
 
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>Relations</>');
+        $this->twoColumnDetail('<fg=green;options=bold>Relations</>');
 
         foreach ($relations as $relation) {
-            $this->components->twoColumnDetail(
+            $this->twoColumnDetail(
                 sprintf('%s <fg=gray>%s</>', $relation['name'], $relation['type']),
                 $relation['related']
             );
@@ -378,11 +378,11 @@ class ShowModelCommand extends DatabaseInspectionCommand
 
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>Observers</>');
+        $this->twoColumnDetail('<fg=green;options=bold>Observers</>');
 
         if ($observers->count()) {
             foreach ($observers as $observer) {
-                $this->components->twoColumnDetail(
+                $this->twoColumnDetail(
                     sprintf('%s', $observer['event']),
                     implode(', ', $observer['observer'])
                 );

@@ -203,20 +203,20 @@ class TableCommand extends DatabaseInspectionCommand
 
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>' . $table['name'] . '</>');
-        $this->components->twoColumnDetail('Columns', $table['columns']);
+        $this->twoColumnDetail('<fg=green;options=bold>' . $table['name'] . '</>');
+        $this->twoColumnDetail('Columns', $table['columns']);
 
         if ($size = $table['size']) {
-            $this->components->twoColumnDetail('Size', number_format($size / 1024 / 1024, 2) . 'MiB');
+            $this->twoColumnDetail('Size', number_format($size / 1024 / 1024, 2) . 'MiB');
         }
 
         $this->newLine();
 
         if ($columns->isNotEmpty()) {
-            $this->components->twoColumnDetail('<fg=green;options=bold>Column</>', 'Type');
+            $this->twoColumnDetail('<fg=green;options=bold>Column</>', 'Type');
 
             $columns->each(function ($column) {
-                $this->components->twoColumnDetail(
+                $this->twoColumnDetail(
                     $column['column'] . ' <fg=gray>' . $column['attributes']->implode(', ') . '</>',
                     (!is_null(
                         $column['default']
@@ -228,10 +228,10 @@ class TableCommand extends DatabaseInspectionCommand
         }
 
         if ($indexes->isNotEmpty()) {
-            $this->components->twoColumnDetail('<fg=green;options=bold>Index</>');
+            $this->twoColumnDetail('<fg=green;options=bold>Index</>');
 
             $indexes->each(function ($index) {
-                $this->components->twoColumnDetail(
+                $this->twoColumnDetail(
                     $index['name'] . ' <fg=gray>' . $index['columns']->implode(', ') . '</>',
                     $index['attributes']->implode(', ')
                 );
@@ -241,10 +241,10 @@ class TableCommand extends DatabaseInspectionCommand
         }
 
         if ($foreignKeys->isNotEmpty()) {
-            $this->components->twoColumnDetail('<fg=green;options=bold>Foreign Key</>', 'On Update / On Delete');
+            $this->twoColumnDetail('<fg=green;options=bold>Foreign Key</>', 'On Update / On Delete');
 
             $foreignKeys->each(function ($foreignKey) {
-                $this->components->twoColumnDetail(
+                $this->twoColumnDetail(
                     $foreignKey['name'] . ' <fg=gray;options=bold>' . $foreignKey['local_columns']->implode(
                         ', '
                     ) . ' references ' . $foreignKey['foreign_columns']->implode(

@@ -64,7 +64,7 @@ class ConfigShowCommand extends Command
         $this->title($name);
 
         foreach (Arr::dot($data) as $key => $value) {
-            $this->components->twoColumnDetail(
+            $this->twoColumnDetail(
                 $this->formatKey($key),
                 $this->formatValue($value)
             );
@@ -80,7 +80,7 @@ class ConfigShowCommand extends Command
      */
     public function title($title, $subtitle = null)
     {
-        $this->components->twoColumnDetail(
+        $this->twoColumnDetail(
             "<fg=green;options=bold>{$title}</>",
             $subtitle,
         );

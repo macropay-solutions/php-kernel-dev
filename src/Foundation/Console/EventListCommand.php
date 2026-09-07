@@ -51,8 +51,8 @@ class EventListCommand extends Command
         $this->newLine();
 
         $events->each(function ($listeners, $event) {
-            $this->components->twoColumnDetail($this->appendEventInterfaces($event));
-            $this->components->bulletList($listeners);
+            $this->twoColumnDetail($this->appendEventInterfaces($event));
+            $this->bulletList($listeners);
         });
 
         $this->newLine();
