@@ -110,13 +110,16 @@ class EnvironmentEncryptCommand extends Command
     /**
      * Parse the encryption key.
      *
-     * @param string $key
-     * @return string
+     * @throws \Exception
      */
-    protected function parseKey(string $key)
+    protected function parseKey(string $key): string
     {
         if (Str::startsWith($key, $prefix = 'base64:')) {
-            $key = base64_decode(Str::after($key, $prefix));
+            $key = \base64_decode(Str::after($key, $prefix), true);
+
+            if (false === $key) {
+                throw new \Exception('Invalid base64 encoded string.');
+            }
         }
 
         return $key;
