@@ -66,12 +66,8 @@ trait InteractsWithConsole
 
     /**
      * Call run command and return code.
-     *
-     * @param string $command
-     * @param array $parameters
-     * @return \MacropaySolutions\KernelDev\Testing\PendingCommand|int
      */
-    public function run($command, $parameters = [])
+    public function runCommand(string $command, array $parameters = []): PendingCommand|int
     {
         if (!$this->mockConsoleOutput) {
             return $this->app[Kernel::class]->call($command, $parameters);
