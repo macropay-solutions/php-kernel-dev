@@ -833,4 +833,18 @@ class QueueFake extends QueueManager implements Fake, Queue
             )
         );
     }
+
+    /**
+     * Hide the application container from PHPUnit's exporter to prevent infinite 
+     * recursion and Exit Code 2 segfaults on failed assertions.
+     */
+    public function __debugInfo(): array
+    {
+        return [
+            'jobs' => $this->jobs,
+            'jobsToFake' => $this->jobsToFake,
+            'jobsToBeQueued' => $this->jobsToBeQueued,
+            'serializeAndRestore' => $this->serializeAndRestore,
+        ];
+    }
 }
