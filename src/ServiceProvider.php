@@ -24,12 +24,12 @@ class ServiceProvider extends ParentServiceProvider
             return;
         }
 
-        $this->app->singleton(FactoryMakeCommand::class, function ($app) {
-            return new FactoryMakeCommand($app['files']);
-        });
-        $this->app->singleton(SessionTableCommand::class, function ($app) {
-            return new SessionTableCommand($app['files'], $app['composer']);
-        });
+        $this->app->singleton(FactoryMakeCommand::class, [function ($app) {
+            return new FactoryMakeCommand($app->make('files'));
+        }, '__invoke']);
+        $this->app->singleton(SessionTableCommand::class, [function ($app) {
+            return new SessionTableCommand($app->make('files'), $app->make('composer'));
+        }, '__invoke']);
 
         $this->app->bind(OutputFormatterInterface::class, OutputFormatter::class);
 
