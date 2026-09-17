@@ -172,7 +172,6 @@ class AboutCommand extends Command
             'Environment' => $this->app->environment(),
             'Debug Mode' => static::format(config('app.debug'), console: $formatEnabledStatus),
             'URL' => Str::of(config('app.url'))->replace(['http://', 'https://'], ''),
-            'Maintenance Mode' => static::format($this->app->isDownForMaintenance(), console: $formatEnabledStatus),
         ]);
 
         static::addToSection('Cache', fn() => [
