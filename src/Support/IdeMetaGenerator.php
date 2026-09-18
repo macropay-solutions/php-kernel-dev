@@ -27,57 +27,52 @@ class IdeMetaGenerator
             }
         };
 
-        // 1. Process reflectable abstract aliases
-        foreach ($abstractAliases as $alias => $classes) {
-            $classes = (array)$classes;
+        // 1. Process mixed array formats from Application.php (Key=Alias vs Key=FQN)
+        foreach ($abstractAliases as $key => $values) {
+            $items = array_merge([$key], (array)$values);
 
-            // Find the most specific concrete class or interface in the array
-            $concrete = null;
+            $aliases = [];
+            $fqns = [];
 
-            foreach ($classes as $class) {
-                if ($exists($class)) {
-                    $concrete = $class;
+            // Separate string aliases from Fully Qualified Names (FQNs)
+            foreach ($items as $item) {
+                if (\str_contains($item, '\\') || $exists($item)) {
+                    $fqns[] = ltrim($item, '\\');
+
+                    continue;
+                }
+
+                $aliases[] = $item;
+            }
+
+            if ([] === $fqns) {
+                continue;
+            }
+
+            // Prefer an actual class over an interface if multiple FQNs exist
+            $target = $fqns[0];
+
+            foreach ($fqns as $fqn) {
+                if ($exists($fqn)) {
+                    $target = $fqn;
 
                     break;
                 }
             }
 
-            if (!$exists($alias)) {
-                // Standard case: $alias is a string (e.g., 'request' => [Request::class])
-                $target = $concrete ?? \end($classes);
-
-                if ($target && $exists($target)) {
-                    $mappings[$alias] = $target;
-                }
-
-                continue;
-            }
-
-            // Quirk case: $alias is a Class FQN (e.g., Request::class => ['request', AppRequest::class])
-            $target = $concrete ?? $alias;
-
-            // Map every string alias in the array to the real class target
-            foreach ($classes as $class) {
-                if (!$exists($class)) {
-                    $mappings[$class] = $target;
-                }
-            }
-
-            // Map the base class FQN to the concrete override if one exists
-            if ($concrete !== null && $concrete !== $alias) {
-                $mappings[$alias] = $concrete;
+            // Map every string alias to the target FQN
+            foreach ($aliases as $alias) {
+                $mappings[$alias] = $target;
             }
         }
 
-        // 2. Guarantee core runtime bindings that reflection misses
-        $requestClass = \class_exists(\App\Request::class)
-            ? \App\Request::class
-            : \MacropaySolutions\Kernel\Http\Request::class;
+        // 2. Unconditionally guarantee 'request' overrides regardless of autoloader state
+        $requestClass = $exists('App\Request')
+            ? 'App\Request'
+            : 'MacropaySolutions\Kernel\Http\Request';
 
-        if ($exists($requestClass)) {
-            $mappings['request'] = $requestClass;
-            $mappings[\MacropaySolutions\Kernel\Http\Request::class] = $requestClass;
-        }
+        $mappings['request'] = $requestClass;
+        $mappings['MacropaySolutions\Kernel\Http\Request'] = $requestClass;
 
         // 3. Build map string
         $map = "map([\n";
