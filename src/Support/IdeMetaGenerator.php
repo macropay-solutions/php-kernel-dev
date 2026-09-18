@@ -45,16 +45,17 @@ class IdeMetaGenerator
             }
 
             if (!$exists($alias)) {
-                // Case A: Standard string alias key (e.g., 'router' => [App\Router::class])
-                if ($concrete !== null) {
-                    $mappings[$alias] = $concrete;
+                // Case A: Key is a string alias (e.g. 'request' => [\MacropaySolutions\Kernel\Http\Request::class])
+                $target = $concrete ?? \end($classes);
+
+                if ($target) {
+                    $mappings[$alias] = $target;
                 }
 
                 continue;
             }
 
-            // Case B: Quirk key where the KEY is a class/interface FQN
-            // (e.g., Request::class => ['request', App\Request::class])
+            // Case B: Key is a FQN (e.g. \MacropaySolutions\Kernel\Http\Request::class => ['request'])
             $target = $concrete ?? $alias;
 
             foreach ($classes as $class) {
