@@ -22,14 +22,24 @@ class IdeMetaGenerator
 
         $mappings = [];
 
+        $exists = static function (string $name): bool {
+            try {
+                return \class_exists($name) || \interface_exists($name);
+            } catch (\Throwable) {
+                return false;
+            }
+        };
+
         foreach ($abstractAliases as $alias => $classes) {
             $classes = (array)$classes;
 
             // Find the most specific concrete class or interface in the array
             $concrete = null;
+
             foreach ($classes as $class) {
-                if (\class_exists($class) || \interface_exists($class)) {
+                if ($exists($class)) {
                     $concrete = $class;
+
                     break;
                 }
             }
@@ -38,7 +48,7 @@ class IdeMetaGenerator
             $concrete = $concrete ?? \end($classes);
 
             // Case A: Standard alias key (e.g., 'request' => [Request::class])
-            if (!\class_exists($alias) && !\interface_exists($alias)) {
+            if (!$exists($alias)) {
                 $mappings[$alias] = $concrete;
 
                 continue;
@@ -47,7 +57,7 @@ class IdeMetaGenerator
             // Case B: Quirk key where the KEY is a class/interface, and the ARRAY contains string aliases
             // (e.g., \MacropaySolutions\Kernel\Http\Request::class => ['request', \App\Request::class])
             foreach ($classes as $class) {
-                if (!\class_exists($class) && !\interface_exists($class)) {
+                if (!$exists($class)) {
                     // $class is the string alias (e.g., 'request')
                     // $alias is the target class or interface
                     $mappings[$class] = $alias;
