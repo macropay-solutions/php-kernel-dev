@@ -196,7 +196,7 @@ trait MakesHttpRequests
     public function withMiddleware($middleware = null)
     {
         if (is_null($middleware)) {
-            unset($this->app['middleware.disable']);
+            $this->app->offsetUnset('middleware.disable');
 
             return $this;
         }
