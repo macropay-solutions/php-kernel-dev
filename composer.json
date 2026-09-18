@@ -29,6 +29,9 @@
         "macropay-solutions/php-kernel": "dev-production"
     },
     "extra": {
-        "class": "MacropaySolutions\\KernelDev\\Composer\\AssetPublisherPlugin"
+        "class": [
+            "MacropaySolutions\\KernelDev\\Composer\\AssetPublisherPlugin",
+            "MacropaySolutions\\KernelDev\\Composer\\IdeMetaPlugin"
+        ]
     }
 }
