@@ -38,7 +38,7 @@ trait TestViews
      */
     protected function parallelSafeCompiledViewPath()
     {
-        self::$originalCompiledViewPath ??= $this->app['config']->get('view.compiled', '');
+        self::$originalCompiledViewPath ??= $this->app->make('config')->get('view.compiled', '');
 
         if (!self::$originalCompiledViewPath) {
             return null;
@@ -57,10 +57,10 @@ trait TestViews
      */
     protected function switchToCompiledViewPath($path)
     {
-        $this->app['config']->set('view.compiled', $path);
+        $this->app->make('config')->set('view.compiled', $path);
 
         if ($this->app->resolved('template.compiler')) {
-            $compiler = $this->app['template.compiler'];
+            $compiler = $this->app->make('template.compiler');
 
             (function () use ($path) {
                 $this->cachePath = $path;

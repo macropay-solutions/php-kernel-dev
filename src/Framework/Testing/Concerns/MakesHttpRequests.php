@@ -370,10 +370,10 @@ trait MakesHttpRequests
             $content
         );
 
-        $this->app['request'] = FrameworkRequest::createFromBase($symfonyRequest);
+        $this->app->instance('request', FrameworkRequest::createFromBase($symfonyRequest));
 
         return $this->response = TestResponse::fromBaseResponse(
-            $this->app->prepareResponse($this->app->handle($this->app['request']))
+            $this->app->prepareResponse($this->app->handle($this->app->make('request')))
         );
     }
 

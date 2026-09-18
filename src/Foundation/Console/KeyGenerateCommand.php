@@ -48,7 +48,7 @@ class KeyGenerateCommand extends Command
             return;
         }
 
-        $this->app['config']['app.key'] = $key;
+        $this->app->make('config')->set('app.key', $key);
 
         $this->info('Application key set successfully.');
     }
@@ -60,7 +60,7 @@ class KeyGenerateCommand extends Command
      */
     protected function generateRandomKey()
     {
-        return 'base64:' . base64_encode(Encrypter::generateKey($this->app['config']['app.cipher']));
+        return 'base64:' . base64_encode(Encrypter::generateKey($this->app->make('config')->get('app.cipher')));
     }
 
     /**
@@ -71,7 +71,7 @@ class KeyGenerateCommand extends Command
      */
     protected function setKeyInEnvironmentFile($key)
     {
-        $currentKey = $this->app['config']['app.key'];
+        $currentKey = $this->app->make('config')->get('app.key');
 
         if (strlen($currentKey) !== 0 && (!$this->confirmToProceed())) {
             return false;
@@ -116,7 +116,7 @@ class KeyGenerateCommand extends Command
      */
     protected function keyReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['app.key'], '/');
+        $escaped = preg_quote('=' . $this->app->make('config')->get('app.key'), '/');
 
         return "/^APP_KEY{$escaped}/m";
     }

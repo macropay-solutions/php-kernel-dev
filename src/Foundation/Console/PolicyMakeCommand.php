@@ -83,7 +83,7 @@ class PolicyMakeCommand extends GeneratorCommand
      */
     protected function userProviderModel()
     {
-        $config = $this->app['config'];
+        $config = $this->app->make('config');
 
         $guard = $this->option('guard') ?: $config->get('auth.defaults.guard');
 

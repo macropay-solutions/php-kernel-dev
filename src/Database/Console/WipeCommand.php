@@ -66,7 +66,7 @@ class WipeCommand extends Command
      */
     protected function dropAllTables($database)
     {
-        $this->app['db']->connection($database)
+        $this->app->make('db')->connection($database)
             ->getSchemaBuilder()
             ->dropAllTables();
     }
@@ -79,7 +79,7 @@ class WipeCommand extends Command
      */
     protected function dropAllViews($database)
     {
-        $this->app['db']->connection($database)
+        $this->app->make('db')->connection($database)
             ->getSchemaBuilder()
             ->dropAllViews();
     }
@@ -92,7 +92,7 @@ class WipeCommand extends Command
      */
     protected function dropAllTypes($database)
     {
-        $this->app['db']->connection($database)
+        $this->app->make('db')->connection($database)
             ->getSchemaBuilder()
             ->dropAllTypes();
     }

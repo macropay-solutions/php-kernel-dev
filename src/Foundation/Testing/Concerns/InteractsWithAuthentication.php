@@ -31,9 +31,9 @@ trait InteractsWithAuthentication
             $user->wasRecentlyCreated = false;
         }
 
-        $this->app['auth']->guard($guard)->setUser($user);
+        $this->app->make('auth')->guard($guard)->setUser($user);
 
-        $this->app['auth']->shouldUse($guard);
+        $this->app->make('auth')->shouldUse($guard);
 
         return $this;
     }

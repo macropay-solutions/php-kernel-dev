@@ -29,7 +29,7 @@ class TableCommand extends MigrationGeneratorCommand
      */
     protected function migrationTableName()
     {
-        return $this->app['config']['queue.connections.database.table'];
+        return $this->app->make('config')->get('queue.connections.database.table');
     }
 
     /**

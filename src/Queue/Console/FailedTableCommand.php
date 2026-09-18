@@ -29,7 +29,7 @@ class FailedTableCommand extends MigrationGeneratorCommand
      */
     protected function migrationTableName()
     {
-        return $this->app['config']['queue.failed.table'];
+        return $this->app->make('config')->get('queue.failed.table');
     }
 
     /**

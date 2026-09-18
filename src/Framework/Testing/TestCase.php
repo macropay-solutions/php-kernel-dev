@@ -321,7 +321,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function be(Authenticatable $user, $driver = null)
     {
-        $this->app['auth']->guard($driver)->setUser($user);
+        $this->app->make('auth')->guard($driver)->setUser($user);
     }
 
     /**

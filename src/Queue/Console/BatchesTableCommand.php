@@ -29,7 +29,7 @@ class BatchesTableCommand extends MigrationGeneratorCommand
      */
     protected function migrationTableName()
     {
-        return $this->app['config']['queue.batching.table'] ?? 'job_batches';
+        return $this->app->make('config')->get('queue.batching.table') ?? 'job_batches';
     }
 
     /**

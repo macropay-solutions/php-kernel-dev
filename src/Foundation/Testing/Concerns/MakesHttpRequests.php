@@ -306,7 +306,7 @@ trait MakesHttpRequests
      */
     public function from(string $url)
     {
-        $this->app['session']->setPreviousUrl($url);
+        $this->app->make('session')->setPreviousUrl($url);
 
         return $this->withHeader('referer', $url);
     }
@@ -320,7 +320,7 @@ trait MakesHttpRequests
      */
     public function fromRoute(string $name, $parameters = [])
     {
-        return $this->from($this->app['url']->route($name, $parameters));
+        return $this->from($this->app->make('url')->route($name, $parameters));
     }
 
     /**

@@ -88,7 +88,7 @@ abstract class MigrationGeneratorCommand extends Command
      */
     protected function createBaseMigration($table)
     {
-        return $this->app['migration.creator']->create(
+        return $this->app->make('migration.creator')->create(
             'create_' . $table . '_table',
             $this->app->databasePath('/migrations')
         );

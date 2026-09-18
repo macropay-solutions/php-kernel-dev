@@ -35,7 +35,7 @@ trait TestCaches
      */
     protected function parallelSafeCachePrefix()
     {
-        self::$originalCachePrefix ??= $this->app['config']->get('cache.prefix', '');
+        self::$originalCachePrefix ??= $this->app->make('config')->get('cache.prefix', '');
 
         return self::$originalCachePrefix . 'test_' . \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->token() . '_';
     }
@@ -48,10 +48,10 @@ trait TestCaches
      */
     protected function switchToCachePrefix($prefix)
     {
-        $this->app['config']->set('cache.prefix', $prefix);
+        $this->app->make('config')->set('cache.prefix', $prefix);
 
         if ($this->app->resolved('cache')) {
-            $this->app['cache']->forgetDriver();
+            $this->app->make('cache')->forgetDriver();
         }
     }
 }

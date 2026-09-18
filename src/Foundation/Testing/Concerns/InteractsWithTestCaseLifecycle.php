@@ -86,7 +86,7 @@ trait InteractsWithTestCaseLifecycle
             $callback();
         }
 
-        Model::setEventDispatcher($this->app['events']);
+        Model::setEventDispatcher($this->app->make('events'));
 
         $this->setUpHasRun = true;
     }
