@@ -44,24 +44,27 @@ class IdeMetaGenerator
                 }
             }
 
-            // Fallback to the last element if no class/interface was found
-            $concrete = $concrete ?? \end($classes);
-
-            // Case A: Standard alias key (e.g., 'request' => [Request::class])
             if (!$exists($alias)) {
-                $mappings[$alias] = $concrete;
+                // Case A: Standard string alias key (e.g., 'router' => [App\Router::class])
+                if ($concrete !== null) {
+                    $mappings[$alias] = $concrete;
+                }
 
                 continue;
             }
 
-            // Case B: Quirk key where the KEY is a class/interface, and the ARRAY contains string aliases
-            // (e.g., \MacropaySolutions\Kernel\Http\Request::class => ['request', \App\Request::class])
+            // Case B: Quirk key where the KEY is a class/interface FQN
+            // (e.g., Request::class => ['request', App\Request::class])
+            $target = $concrete ?? $alias;
+
             foreach ($classes as $class) {
                 if (!$exists($class)) {
-                    // $class is the string alias (e.g., 'request')
-                    // $alias is the target class or interface
-                    $mappings[$class] = $alias;
+                    $mappings[$class] = $target;
                 }
+            }
+
+            if ($concrete !== null && $concrete !== $alias) {
+                $mappings[$alias] = $concrete;
             }
         }
 
