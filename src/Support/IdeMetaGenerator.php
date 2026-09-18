@@ -45,25 +45,27 @@ class IdeMetaGenerator
             }
 
             if (!$exists($alias)) {
-                // Case A: Key is a string alias (e.g. 'request' => [\MacropaySolutions\Kernel\Http\Request::class])
+                // Standard case: $alias is a string (e.g., 'request' => [Request::class])
                 $target = $concrete ?? \end($classes);
 
-                if ($target) {
+                if ($target && $exists($target)) {
                     $mappings[$alias] = $target;
                 }
 
                 continue;
             }
 
-            // Case B: Key is a FQN (e.g. \MacropaySolutions\Kernel\Http\Request::class => ['request'])
+            // Quirk case: $alias is a Class FQN (e.g., Request::class => ['request', AppRequest::class])
             $target = $concrete ?? $alias;
 
+            // Map every string alias in the array to the real class target
             foreach ($classes as $class) {
                 if (!$exists($class)) {
                     $mappings[$class] = $target;
                 }
             }
 
+            // Map the base class FQN to the concrete override if one exists
             if ($concrete !== null && $concrete !== $alias) {
                 $mappings[$alias] = $concrete;
             }
