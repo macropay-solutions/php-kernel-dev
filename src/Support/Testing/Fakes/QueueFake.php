@@ -344,7 +344,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      */
     protected function assertPushedWithChainOfClasses($job, $expectedChain, $callback)
     {
-        $matching = $this->pushed($job, $callback)->map->chained->map(function ($chain) {
+        $matching = $this->pushed($job, $callback)->map(fn($job) => $job->chained)->map(function ($chain) {
             return collect($chain)->map(function ($chainedJob) {
                 if (\is_string($chainedJob)) {
                     $decoded = \json_decode($chainedJob, true);
