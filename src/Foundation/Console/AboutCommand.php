@@ -214,7 +214,7 @@ class AboutCommand extends Command
             'Session' => config('session.driver'),
         ]));
 
-        collect(static::$customDataResolvers)->each(fn($resolver) => $resolver());
+        collect(static::$customDataResolvers)->each(static fn($resolver) => $resolver());
     }
 
     /**
