@@ -10,6 +10,7 @@ use MacropaySolutions\KernelDev\Database\Console\Factories\FactoryMakeCommand;
 use MacropaySolutions\KernelDev\Database\Console\ShowCommand;
 use MacropaySolutions\KernelDev\Database\Console\ShowModelCommand;
 use MacropaySolutions\KernelDev\Database\Console\TableCommand;
+use MacropaySolutions\KernelDev\Foundation\Console\KeyGenerateCommand;
 use MacropaySolutions\KernelDev\Session\Console\SessionTableCommand;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
@@ -38,6 +39,7 @@ class ServiceProvider extends ParentServiceProvider implements DeferrableProvide
             ShowCommand::class,
             ShowModelCommand::class,
             TableCommand::class,
+            KeyGenerateCommand::class,
         ]);
     }
 }
