@@ -3,6 +3,8 @@
 namespace MacropaySolutions\KernelDev\Testing\Concerns;
 
 
+use MacropaySolutions\KernelDev\Testing\ParallelTesting;
+
 trait TestCaches
 {
     /**
@@ -17,14 +19,14 @@ trait TestCaches
      *
      * @return void
      */
-    protected function bootTestCache()
+    protected function bootTestCache(ParallelTesting $parallelTesting)
     {
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->setUpTestCase(function (): void {
-            if (\app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->option('without_cache')) {
+        $parallelTesting->setUpTestCase(function () use ($parallelTesting): void {
+            if ($parallelTesting->option('without_cache')) {
                 return;
             }
 
-            $this->switchToCachePrefix($this->parallelSafeCachePrefix());
+            $this->switchToCachePrefix($this->parallelSafeCachePrefix($parallelTesting));
         });
     }
 
@@ -33,11 +35,11 @@ trait TestCaches
      *
      * @return string
      */
-    protected function parallelSafeCachePrefix()
+    protected function parallelSafeCachePrefix(ParallelTesting $parallelTesting)
     {
         self::$originalCachePrefix ??= $this->app->make('config')->get('cache.prefix', '');
 
-        return self::$originalCachePrefix . 'test_' . \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->token() . '_';
+        return self::$originalCachePrefix . 'test_' . $parallelTesting->token() . '_';
     }
 
     /**

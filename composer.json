@@ -11,7 +11,8 @@
         "composer-plugin-api": "^2.0"
     },
     "require-dev": {
-        "composer/composer": "^2.0"
+        "composer/composer": "^2.0",
+        "macropay-solutions/php-kernel": "^1.0@RC"
     },
     "autoload": {
         "psr-4": {
@@ -33,5 +34,6 @@
             "MacropaySolutions\\KernelDev\\Composer\\AssetPublisherPlugin",
             "MacropaySolutions\\KernelDev\\Composer\\IdeMetaPlugin"
         ]
-    }
+    },
+    "minimum-stability": "RC"
 }

@@ -5,6 +5,7 @@ namespace MacropaySolutions\KernelDev\Testing\Concerns;
 use MacropaySolutions\Kernel\Database\QueryException;
 use MacropaySolutions\Kernel\Support\Arr;
 use MacropaySolutions\KernelDev\Foundation\Testing;
+use MacropaySolutions\KernelDev\Testing\ParallelTesting;
 
 trait TestDatabases
 {
@@ -20,11 +21,11 @@ trait TestDatabases
      *
      * @return void
      */
-    protected function bootTestDatabase()
+    protected function bootTestDatabase(ParallelTesting $parallelTesting)
     {
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->setUpProcess(function () {
-            $this->whenNotUsingInMemoryDatabase(function ($database) {
-                if (\app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->option('recreate_databases')) {
+        $parallelTesting->setUpProcess(function () use ($parallelTesting) {
+            $this->whenNotUsingInMemoryDatabase(function ($database) use ($parallelTesting) {
+                if ($parallelTesting->option('recreate_databases')) {
                     \app('db.schema')->dropDatabaseIfExists(
                         $this->testDatabase($database)
                     );
@@ -32,7 +33,7 @@ trait TestDatabases
             });
         });
 
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->setUpTestCase(function ($testCase) {
+        $parallelTesting->setUpTestCase(function ($testCase) use ($parallelTesting) {
             $uses = array_flip(class_uses_recursive(get_class($testCase)));
 
             $databaseTraits = [
@@ -42,8 +43,8 @@ trait TestDatabases
                 Testing\RefreshDatabase::class,
             ];
 
-            if (Arr::hasAny($uses, $databaseTraits) && !\app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->option('without_databases')) {
-                $this->whenNotUsingInMemoryDatabase(function ($database) use ($uses) {
+            if (Arr::hasAny($uses, $databaseTraits) && !$parallelTesting->option('without_databases')) {
+                $this->whenNotUsingInMemoryDatabase(function ($database) use ($uses, $parallelTesting) {
                     [$testDatabase, $created] = $this->ensureTestDatabaseExists($database);
 
                     $this->switchToDatabase($testDatabase);
@@ -53,15 +54,15 @@ trait TestDatabases
                     }
 
                     if ($created) {
-                        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->callSetUpTestDatabaseCallbacks($testDatabase);
+                        $parallelTesting->callSetUpTestDatabaseCallbacks($testDatabase);
                     }
                 });
             }
         });
 
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->tearDownProcess(function () {
-            $this->whenNotUsingInMemoryDatabase(function ($database) {
-                if (\app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->option('drop_databases')) {
+        $parallelTesting->tearDownProcess(function () use ($parallelTesting) {
+            $this->whenNotUsingInMemoryDatabase(function ($database) use ($parallelTesting) {
+                if ($parallelTesting->option('drop_databases')) {
                     \app('db.schema')->dropDatabaseIfExists(
                         $this->testDatabase($database)
                     );

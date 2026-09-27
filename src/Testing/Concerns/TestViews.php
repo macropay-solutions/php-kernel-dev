@@ -2,6 +2,8 @@
 
 namespace MacropaySolutions\KernelDev\Testing\Concerns;
 
+use MacropaySolutions\KernelDev\Testing\ParallelTesting;
+
 trait TestViews
 {
     /**
@@ -16,15 +18,15 @@ trait TestViews
      *
      * @return void
      */
-    protected function bootTestViews()
+    protected function bootTestViews(ParallelTesting $parallelTesting)
     {
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->setUpProcess(function () {
+        $parallelTesting->setUpProcess(function () {
             if ($path = $this->parallelSafeCompiledViewPath()) {
                 \app('files')->ensureDirectoryExists($path);
             }
         });
 
-        \app(\MacropaySolutions\KernelDev\Testing\ParallelTesting::class)->setUpTestCase(function () {
+        $parallelTesting->setUpTestCase(function () {
             if ($path = $this->parallelSafeCompiledViewPath()) {
                 $this->switchToCompiledViewPath($path);
             }

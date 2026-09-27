@@ -2,6 +2,7 @@
 
 namespace MacropaySolutions\KernelDev\Testing;
 
+use MacropaySolutions\Kernel\Container\Container;
 use MacropaySolutions\Kernel\Contracts\Support\DeferrableProvider;
 use MacropaySolutions\Kernel\Support\ServiceProvider;
 use MacropaySolutions\KernelDev\Testing\Concerns\TestCaches;
@@ -15,20 +16,6 @@ class ParallelTestingServiceProvider extends ServiceProvider implements Deferrab
     use TestViews;
 
     /**
-     * Boot the application's service providers.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        if ($this->app->runningInConsole()) {
-            $this->bootTestCache();
-            $this->bootTestDatabase();
-            $this->bootTestViews();
-        }
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
@@ -39,6 +26,21 @@ class ParallelTestingServiceProvider extends ServiceProvider implements Deferrab
             $this->app->singleton(ParallelTesting::class, [function () {
                 return new ParallelTesting($this->app);
             }, '__invoke']);
+            $this->app->afterResolving(ParallelTesting::class, [$this, 'afterResolving']);
         }
+    }
+
+    public function afterResolving(ParallelTesting $parallelTesting, Container $app): void
+    {
+        $this->bootTestCache($parallelTesting);
+        $this->bootTestDatabase($parallelTesting);
+        $this->bootTestViews($parallelTesting);
+    }
+
+    public function provides()
+    {
+        return [
+            ParallelTesting::class
+        ];
     }
 }

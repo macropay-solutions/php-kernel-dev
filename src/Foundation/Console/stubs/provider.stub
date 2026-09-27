@@ -2,9 +2,10 @@
 
 namespace {{ namespace }};
 
+use MacropaySolutions\Kernel\Contracts\Support\DeferrableProvider;
 use MacropaySolutions\Kernel\Support\ServiceProvider;
 
-class {{ class }} extends ServiceProvider
+class {{ class }} extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register services.
@@ -14,11 +15,10 @@ class {{ class }} extends ServiceProvider
         //
     }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
+    public function provides(): array
     {
-        //
+        return [
+            //
+        ];
     }
 }
