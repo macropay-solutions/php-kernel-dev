@@ -37,11 +37,14 @@ class LangPublishCommand extends Command
             \app(Filesystem::class)->makeDirectory($langPath, recursive: true);
         }
 
+        $reflection = new \ReflectionClass(\MacropaySolutions\Kernel\Translation\ArrayLoader::class);
+        $kernelLangPath = \dirname($reflection->getFileName()) . '/lang/en';
+
         $stubs = [
-            realpath(__DIR__ . '/../../Translation/lang/en/auth.php') => 'auth.php',
-            realpath(__DIR__ . '/../../Translation/lang/en/pagination.php') => 'pagination.php',
-            realpath(__DIR__ . '/../../Translation/lang/en/passwords.php') => 'passwords.php',
-            realpath(__DIR__ . '/../../Translation/lang/en/validation.php') => 'validation.php',
+            realpath($kernelLangPath . '/auth.php') => 'auth.php',
+            realpath($kernelLangPath . '/pagination.php') => 'pagination.php',
+            realpath($kernelLangPath . '/passwords.php') => 'passwords.php',
+            realpath($kernelLangPath . '/validation.php') => 'validation.php',
         ];
 
         foreach ($stubs as $from => $to) {
