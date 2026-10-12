@@ -52,9 +52,6 @@ php run db:table
         {--json : Output the table information as JSON}
 ```
 ```bash
-php run docs {page? : The documentation page to open} {section? : The section of the page to open}
-```
-```bash
 php run env:encrypt
         {--key= : The encryption key}
         {--cipher= : The encryption cipher}
@@ -166,9 +163,6 @@ php run make:test
 php run make:view
 ```
 ```bash
-php run notifications:table
-```
-```bash
 php run queue:batches-table
 ```
 ```bash
@@ -178,10 +172,10 @@ php run queue:failed-table
 php run queue:table
 ```
 ```bash
-php run serve
+php run session:table
 ```
 ```bash
-php run session:table
+php run bootstrap-cache:clear
 ```
 
 
